@@ -158,16 +158,10 @@ export const portfolioData = {
     { name: "External APIs", items: ["Shopee API", "TikTok Shop API", "Booking APIs", "Payment Gateways", "Storage APIs", "SMTP"] },
     { name: "Engineering Workflow", items: ["System Planning", "Code Review", "Debugging", "Technical Documentation", "Prompt Engineering", "AI Code Review"] }
   ],
-  learningGrowth: [
-    "Linux / Ubuntu Server",
-    "VPS Deployment",
-    "Docker / Docker Compose",
-    "CI/CD Pipeline",
-    "Jenkins",
-    "Unit Test / Regression Test",
-    "Nginx / Reverse Proxy",
-    "Monitoring / Logs",
-    "System Design",
-    "Security Basics"
+  learningGrowthCategories: [
+    { name: "Server & Deployment", items: ["Linux / Ubuntu Server", "VPS Deployment", "Docker / Docker Compose", "Nginx / Reverse Proxy"] },
+    { name: "CI/CD & Testing", items: ["CI/CD Pipeline", "Jenkins", "Unit Test / Regression Test", "Build Validation"] },
+    { name: "System Design", items: ["System Design", "Database Modeling", "API Architecture"] },
+    { name: "Workflow & Operations", items: ["Monitoring / Logs", "Security Basics", "Technical Docs"] }
   ]
 };

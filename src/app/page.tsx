@@ -10,7 +10,7 @@ import { Footer } from "@/components/sections/Footer"
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col bg-background">
+    <main className="flex min-h-screen flex-col bg-background overflow-x-hidden">
       <Header />
       <HeroSection />
       <CoreTechnicalSection />
