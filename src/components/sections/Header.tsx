@@ -34,9 +34,6 @@ export function Header() {
               {link.name}
             </a>
           ))}
-          <Button variant="outline" size="sm" onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}>
-            Liên hệ
-          </Button>
         </nav>
 
         {/* Mobile Toggle */}
@@ -63,12 +60,6 @@ export function Header() {
               {link.name}
             </a>
           ))}
-          <Button variant="default" className="w-full mt-4" onClick={() => {
-            setIsOpen(false)
-            document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })
-          }}>
-            Liên hệ
-          </Button>
         </motion.div>
       )}
     </header>

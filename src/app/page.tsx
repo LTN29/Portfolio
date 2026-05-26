@@ -1,11 +1,11 @@
 import { Header } from "@/components/sections/Header"
 import { HeroSection } from "@/components/sections/HeroSection"
+import { CoreTechnicalSection } from "@/components/sections/CoreTechnicalSection"
 import { FeaturedWorkSection } from "@/components/sections/FeaturedWorkSection"
-import { ExpertiseSection } from "@/components/sections/ExpertiseSection"
 import { CaseStudiesSection } from "@/components/sections/CaseStudiesSection"
 import { StackSection } from "@/components/sections/StackSection"
+import { LearningGrowthSection } from "@/components/sections/LearningGrowthSection"
 import { AboutSection } from "@/components/sections/AboutSection"
-import { ContactSection } from "@/components/sections/ContactSection"
 import { Footer } from "@/components/sections/Footer"
 
 export default function Home() {
@@ -13,12 +13,12 @@ export default function Home() {
     <main className="flex min-h-screen flex-col bg-background">
       <Header />
       <HeroSection />
+      <CoreTechnicalSection />
       <FeaturedWorkSection />
-      <ExpertiseSection />
       <CaseStudiesSection />
       <StackSection />
+      <LearningGrowthSection />
       <AboutSection />
-      <ContactSection />
       <Footer />
     </main>
   )

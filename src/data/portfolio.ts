@@ -2,111 +2,172 @@ export const portfolioData = {
   personal: {
     name: "Lê Thanh Nhân",
     logoText: "LTN.",
-    roleHeadline: ["Product-minded Full-stack Developer", "AI-assisted Product Builder", "Marketplace & Booking System Developer"],
-    heroCopy: "Tôi xây dựng các hệ thống web thực tế với AI-assisted workflows, tích hợp API marketplace, và tư duy phát triển tập trung vào sản phẩm.",
-    shortDescription: "Tôi xây dựng các hệ thống web thực tế, kết hợp giao diện sạch, backend ổn định, tích hợp API bên thứ ba và luồng nghiệp vụ vận hành. Điểm mạnh của tôi không chỉ là code, mà là khả năng hiểu sản phẩm, trải nghiệm người dùng, logic kinh doanh và nguyên nhân gốc của vấn đề kỹ thuật.",
-    about: "Tôi không chỉ tập trung vào việc viết code cho chạy, mà tập trung vào việc xây dựng hệ thống có thể dùng được trong thực tế. Tôi quan tâm đến giao diện, trải nghiệm người dùng, hiệu năng, logic nghiệp vụ và cách hệ thống phục vụ vận hành kinh doanh. Tôi thường làm việc theo hướng phân tích root cause, giữ scope rõ ràng, tối ưu mà không phá UI, và dùng AI như một công cụ tăng tốc phát triển nhưng vẫn kiểm soát chất lượng sản phẩm."
+    roleHeadline: ["Full-stack System Builder"],
+    heroCopy: "Tập trung vào các hệ thống có logic vận hành thật: marketplace workflow, Shopee/TikTok API, inventory/order logic, booking platform, education management system, admin dashboard, Linux/VPS deployment, Docker, CI/CD, unit test và performance optimization.",
+    shortDescription: "Tôi xây dựng hệ thống web thực tế từ phân tích nghiệp vụ, thiết kế flow, frontend/backend, database, API integration đến triển khai Docker/VPS và tối ưu vận hành.",
+    about: "Tôi không chỉ tập trung vào việc viết code cho chạy, mà tập trung vào việc xây dựng hệ thống có thể vận hành trơn tru trong thực tế. Điểm mạnh cốt lõi của tôi là khả năng thiết kế và tối ưu luồng hệ thống (System Flow) — từ việc vạch ra data flow, business logic, đến kiến trúc đồng bộ dữ liệu và xử lý giao dịch phức tạp. Việc định hình đúng luồng hệ thống ngay từ đầu giúp giải quyết triệt để các bài toán hóc búa, giảm thiểu rủi ro và đảm bảo tính nhất quán (data consistency) cho toàn bộ kiến trúc. Tôi kết hợp tư duy hệ thống này với engineering workflow để tăng tốc quá trình xây dựng, nhưng vẫn luôn nắm quyền kiểm soát tuyệt đối về logic và chất lượng sản phẩm."
   },
   systemStatus: [
-    { name: "Simi Homes", label: "Booking Platform", active: true },
-    { name: "Shopee/TikTok", label: "Marketplace API", active: true },
-    { name: "Mirror Stock", label: "Inventory Logic", active: true },
-    { name: "Admin Dashboard", label: "Operation UX", active: true },
-    { name: "Performance", label: "Frontend/Backend Optimization", active: true }
+    { name: "Product & Flow Planning", chips: ["Business Flow", "User Flow", "Operation Flow"], active: true },
+    { name: "Full-stack Engineering", chips: ["Frontend", "Backend", "Database", "REST API"], active: true },
+    { name: "Marketplace APIs", chips: ["Shopee", "TikTok Shop", "Order Sync", "Stock Sync"], active: true },
+    { name: "DevOps & Deployment", chips: ["Linux", "Ubuntu", "VPS", "Docker", "Nginx"], active: true },
+    { name: "CI/CD & Testing", chips: ["Jenkins", "Unit Test", "Regression Test", "Pipeline"], active: true },
+    { name: "Engineering Workflow", chips: ["Planning", "Code Review", "Debugging", "Docs"], active: true }
+  ],
+  coreCapabilities: [
+    {
+      title: "System & Product Thinking",
+      description: "Phân tích nghiệp vụ, dựng flow vận hành, xác định trạng thái dữ liệu, root cause và phạm vi xử lý.",
+      chips: ["Business Flow", "User Flow", "Operation Flow", "Root Cause", "Scope Control"]
+    },
+    {
+      title: "Frontend Engineering",
+      description: "Xây dựng giao diện React/Next.js rõ ràng, responsive, tối ưu render và trải nghiệm thao tác.",
+      chips: ["React", "Next.js", "TypeScript", "Tailwind CSS", "UI Performance"]
+    },
+    {
+      title: "Backend Engineering",
+      description: "Thiết kế API, service layer, business logic, transaction flow và database mapping.",
+      chips: ["Spring Boot", "REST API", "PostgreSQL", "Service Layer", "Business Logic"]
+    },
+    {
+      title: "Marketplace Integration",
+      description: "Tích hợp Shopee/TikTok API, đồng bộ đơn hàng, mapping dữ liệu, trạng thái đơn và tồn kho marketplace.",
+      chips: ["Shopee API", "TikTok Shop API", "Order Sync", "Stock Sync", "API Mapping"]
+    },
+    {
+      title: "Inventory & Operation Logic",
+      description: "Thiết kế logic tồn kho, đơn giữ, committed stock, hủy/hoàn đơn và các luồng cập nhật theo trạng thái.",
+      chips: ["Reserved Stock", "Committed Stock", "Available Stock", "Mirror Stock", "Order State"]
+    },
+    {
+      title: "Education Management Logic",
+      description: "Thiết kế luồng quản lý học viên, lớp học, khóa học, lịch học, học phí, enrollment và dữ liệu vận hành cho trung tâm ngoại ngữ.",
+      chips: ["Student Management", "Course Flow", "Class Schedule", "Tuition Flow", "Admin Operation"]
+    },
+    {
+      title: "DevOps & Server Deployment",
+      description: "Triển khai hệ thống trên VPS, cấu hình Linux/Ubuntu, Docker/Docker Compose, environment và reverse proxy.",
+      chips: ["Linux", "Ubuntu", "VPS", "Docker", "Docker Compose", "Nginx"]
+    },
+    {
+      title: "CI/CD & Testing",
+      description: "Thiết lập pipeline build/deploy, kiểm thử logic, unit test, regression test và kiểm soát lỗi trước khi release.",
+      chips: ["Jenkins", "CI/CD", "Unit Test", "Regression Test", "Build Pipeline"]
+    }
   ],
   featuredWorks: [
     {
-      title: "Simi Homes — Booking & Property Platform",
-      type: "Nền tảng đặt phòng thực tế",
-      description: "Xây dựng và tối ưu nền tảng đặt phòng bao gồm trang web công khai, danh sách chỗ ở, chi tiết property, gallery phòng, admin dashboard, luồng booking, lịch trống, email mời, phân quyền và chuẩn bị tích hợp thanh toán/API bên thứ ba.",
+      title: "Booking & Property Management Platform",
+      type: "Booking System",
+      description: "Hệ thống quản lý đặt phòng, phòng/home, trạng thái phòng, hình ảnh, dashboard quản trị, phân quyền và tích hợp API bên thứ ba.",
       keyPoints: [
-        "Trang tìm kiếm chỗ ở công khai",
-        "Chi tiết property và thư viện ảnh",
-        "Admin dashboard và phân quyền truy cập",
-        "Luồng booking, lịch, logic tính giá",
-        "Lên kế hoạch tích hợp GoHost API",
-        "Thiết lập email mời qua SMTP",
-        "Tối ưu hiệu năng cho ảnh, bản đồ, thẻ và API calls"
+        "Booking & property workflow",
+        "Admin dashboard & RBAC",
+        "Image/storage management",
+        "Third-party API integration",
+        "Performance optimization"
       ],
       stack: ["React", "TypeScript", "Spring Boot", "PostgreSQL", "Supabase Storage", "Docker", "SMTP", "API Integration"]
     },
     {
       title: "Marketplace Operations & Mirror Stock System",
-      type: "Hệ thống vận hành thương mại điện tử",
-      description: "Xây dựng luồng vận hành thương mại điện tử với AI-assisted workflow tích hợp API Shopee và TikTok Shop, tập trung vào đồng bộ đơn hàng, theo dõi tồn kho, logic mirror stock và dashboard vận hành.",
+      type: "Marketplace / Inventory",
+      description: "Hệ thống đồng bộ đơn hàng và tồn kho đa kênh, tích hợp Shopee/TikTok, xử lý mirror stock, trạng thái đơn và dữ liệu vận hành.",
       keyPoints: [
-        "Tích hợp Shopee API",
-        "Tích hợp TikTok Shop API",
-        "Đồng bộ đơn hàng tự động",
-        "Logic cân bằng mirror stock",
-        "Tính toán số lượng đặt trước (reserved quantity)",
-        "Tính toán số lượng tồn kho khả dụng",
-        "Luồng đối soát kho hàng",
-        "Dashboard theo dõi đơn hàng và tồn kho"
+        "Shopee/TikTok API integration",
+        "Order sync & stock sync",
+        "Reserved/committed/available stock",
+        "Inventory calculation logic",
+        "Regression test for stock transition"
       ],
-      stack: ["React", "TypeScript", "Java/Spring Boot", "Marketplace APIs", "REST API", "SQL", "Docker"]
+      stack: ["React", "TypeScript", "Java/Spring Boot", "REST API", "SQL", "Docker", "Marketplace APIs"]
     },
     {
-      title: "Admin & Business Operation Interfaces",
-      type: "Công cụ nội bộ / UX Quản trị",
-      description: "Thiết kế và cải thiện giao diện quản trị cho các hoạt động kinh doanh, tập trung vào sự rõ ràng, tốc độ, phân quyền, khả năng hiển thị dữ liệu và UI cao cấp nhưng thiết thực.",
+      title: "Education Center Management System",
+      type: "Education / Admin System",
+      description: "Hệ thống quản lý trung tâm ngoại ngữ với frontend, backend service và database workflow cho học viên, lớp học, khóa học, lịch học, học phí và vận hành admin.",
       keyPoints: [
-        "Tái thiết kế Admin Dashboard",
-        "Thẻ chỉ số hoạt động kinh doanh",
-        "Bảng dữ liệu, bộ lọc, huy hiệu trạng thái",
-        "Trải nghiệm phân quyền người dùng",
-        "Tinh chỉnh giao diện di động và chế độ ban đêm",
-        "Tối ưu hóa quy trình làm việc kinh doanh"
+        "Student profile & enrollment management",
+        "Course / class / schedule workflow",
+        "Tuition and payment tracking flow",
+        "Admin CRUD interface and filters",
+        "Frontend + Java backend service structure",
+        "Database-driven operation logic"
       ],
-      stack: ["React", "TypeScript", "Tailwind", "API-driven UI", "Dashboard UX"]
-    }
-  ],
-  expertise: [
-    {
-      title: "Frontend Engineering",
-      skills: ["React / Next.js", "TypeScript", "Tailwind CSS", "Responsive UI", "Component architecture", "Performance optimization"]
+      stack: ["JavaScript", "Java", "CSS", "T-SQL", "REST API", "Backend Service", "Admin Dashboard", "Database"]
     },
     {
-      title: "Backend & Business Logic",
-      skills: ["Java Spring Boot", "REST API", "PostgreSQL / SQL", "Booking logic", "Inventory logic", "Role & permission"]
-    },
-    {
-      title: "Integration",
-      skills: ["Shopee API", "TikTok Shop API", "Supabase Storage", "SMTP / Brevo", "Payment gateway", "GoHost API planning", "Docker deployment"]
-    },
-    {
-      title: "Product & AI Workflow",
-      skills: ["AI-assisted development", "Prompt-driven implementation", "Code audit", "Root-cause debugging", "Safe refactor", "UX/product thinking"]
+      title: "Admin Operation Interfaces",
+      type: "Internal Tool / Admin UX",
+      description: "Các giao diện quản trị nội bộ tập trung vào xử lý dữ liệu lớn, bảng dữ liệu, bộ lọc, CRUD, phân quyền và tối ưu trải nghiệm vận hành.",
+      keyPoints: [
+        "Data-heavy UI optimization",
+        "Reusable admin components",
+        "Role-based menu",
+        "Table/filter/form UX",
+        "Dark mode and responsive UI"
+      ],
+      stack: ["React", "TypeScript", "Tailwind CSS", "Admin UI", "Dashboard UX"]
     }
   ],
   caseStudies: [
     {
-      title: "Performance Optimization Without Breaking UI",
-      problem: "Các trang hiện tại bị lag, re-render không cần thiết, render ảnh/bản đồ nặng và lặp lại các API calls.",
-      rootCause: "Nhiều component build lại dữ liệu quá thường xuyên, việc tải ảnh không được kiểm soát kỹ và một số tương tác gây ra update không cần thiết.",
-      solution: "Giảm thiểu re-render, cải thiện cache/dedupe API, tối ưu hóa các hàm xử lý tương tác và bảo toàn nghiêm ngặt bố cục/tỷ lệ ảnh.",
-      result: "Cải thiện rõ rệt độ phản hồi của trang trong khi vẫn giữ nguyên thiết kế giao diện."
+      title: "Marketplace API Integration",
+      problem: "Dữ liệu đơn hàng và tồn kho từ Shopee/TikTok cần được đồng bộ đúng theo trạng thái vận hành.",
+      rootCause: "Mapping dữ liệu sàn, trạng thái đơn và tồn kho nội bộ dễ lệch nếu không tách rõ từng transition.",
+      solution: "Thiết kế flow đồng bộ đơn hàng, mapping trạng thái, xử lý holding/committed/cancel/return và kiểm tra regression.",
+      result: "Tăng độ nhất quán dữ liệu marketplace và giảm phụ thuộc thao tác đồng bộ thủ công."
     },
     {
-      title: "Mirror Stock Logic for Marketplace Orders",
-      problem: "Số lượng tồn kho trên marketplace dễ bị sai lệch nếu không đồng bộ thủ công liên tục.",
-      rootCause: "Việc phản ánh tồn kho bị lẫn lộn giữa trạng thái vật lý tại kho và trạng thái giữ hàng tạm thời của đơn marketplace.",
-      solution: "Tách biệt luồng đọc dữ liệu marketplace khỏi luồng sổ cái kho vật lý, tính toán số lượng giữ/khả dụng dựa trên vòng đời đơn hàng.",
-      result: "Mang lại cái nhìn chính xác hơn về tồn kho vận hành cho cả marketplace và quá trình đối soát kho."
+      title: "VPS Deployment & CI/CD",
+      problem: "Deploy thủ công dễ sai env, build lỗi, khó rollback và khó kiểm soát phiên bản khi release.",
+      rootCause: "Thiếu pipeline chuẩn, thiếu kiểm tra build/test trước deploy và cấu hình server chưa được chuẩn hóa.",
+      solution: "Chuẩn hóa Docker/Docker Compose, Linux/Ubuntu VPS setup, environment config, Jenkins pipeline, build check và test trước release.",
+      result: "Giảm lỗi deploy, tăng tính ổn định môi trường và dễ kiểm soát quá trình release."
     },
     {
-      title: "Premium UI Refinement for Real Product",
-      problem: "Nhiều trang nhìn thiếu nhất quán, quá nhiều màu sắc hoặc không đủ độ 'premium'.",
-      solution: "Tinh chỉnh lại bố cục, typography, khoảng cách, thiết kế thẻ, dark mode, hành vi trên mobile và nội dung tập trung vào kinh doanh.",
-      result: "Tạo ra một giao diện điềm tĩnh, đáng tin cậy hơn, phù hợp cho hệ thống booking và vận hành kinh doanh thực tế."
+      title: "Performance Optimization",
+      problem: "Giao diện chậm khi render nhiều dữ liệu, hình ảnh và thao tác tương tác.",
+      rootCause: "Re-render không cần thiết, thiếu memoization, request lặp và xử lý sự kiện chưa tối ưu.",
+      solution: "Tối ưu component rendering, caching/dedupe request, lazy loading và debounce/throttle interaction.",
+      result: "Cải thiện độ mượt UI, giảm tải frontend/backend và tăng trải nghiệm thao tác."
+    },
+    {
+      title: "Admin Operation System",
+      problem: "Giao diện quản trị khó dùng, nhiều màn hình CRUD thiếu đồng nhất.",
+      rootCause: "Thiếu design system, component dùng lại và luồng thao tác chưa rõ.",
+      solution: "Chuẩn hóa layout, table, filter, form, role-based menu và trạng thái dữ liệu.",
+      result: "Tăng tốc độ thao tác vận hành và giúp hệ thống dễ mở rộng."
+    },
+    {
+      title: "Education Center Management",
+      problem: "Quản lý học viên, lớp học, khóa học, lịch học và học phí dễ rời rạc khi dùng công cụ thủ công.",
+      rootCause: "Dữ liệu vận hành nằm ở nhiều nơi, thiếu workflow tập trung cho admin.",
+      solution: "Xây dựng module quản lý học viên, lớp, khóa học, lịch học, học phí và dashboard quản trị.",
+      result: "Tập trung dữ liệu vận hành, giảm thao tác thủ công và dễ theo dõi tình trạng trung tâm."
     }
   ],
   stackCategories: [
     { name: "Languages", items: ["TypeScript", "Java", "SQL"] },
-    { name: "Frontend", items: ["React", "Next.js", "Tailwind CSS", "Framer Motion"] },
+    { name: "Frontend", items: ["React", "Next.js", "Tailwind CSS", "Framer Motion", "Responsive UI"] },
     { name: "Backend", items: ["Spring Boot", "REST API", "PostgreSQL", "Node.js"] },
-    { name: "Tools & DevOps", items: ["Docker", "Git", "Supabase", "SMTP"] },
-    { name: "Integrations", items: ["Shopee API", "TikTok Shop API", "GoHost API", "Payment Gateways"] },
-    { name: "Workflow", items: ["AI-assisted Dev", "Code Review", "Debugging", "Product Thinking"] }
+    { name: "DevOps & Server", items: ["Linux", "Ubuntu", "VPS", "Docker", "Docker Compose", "Nginx", "Environment Config"] },
+    { name: "CI/CD & Testing", items: ["Jenkins", "CI/CD Pipeline", "Unit Test", "Regression Test", "Build Validation"] },
+    { name: "External APIs", items: ["Shopee API", "TikTok Shop API", "Booking APIs", "Payment Gateways", "Storage APIs", "SMTP"] },
+    { name: "Engineering Workflow", items: ["System Planning", "Code Review", "Debugging", "Technical Documentation", "Prompt Engineering", "AI Code Review"] }
+  ],
+  learningGrowth: [
+    "Linux / Ubuntu Server",
+    "VPS Deployment",
+    "Docker / Docker Compose",
+    "CI/CD Pipeline",
+    "Jenkins",
+    "Unit Test / Regression Test",
+    "Nginx / Reverse Proxy",
+    "Monitoring / Logs",
+    "System Design",
+    "Security Basics"
   ]
 };

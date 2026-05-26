@@ -20,25 +20,22 @@ export function HeroSection() {
           Sẵn sàng cho dự án mới / Xây dựng hệ thống thực tế
         </Badge>
         
-        <div className="space-y-4">
-          <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-tight">
+        <div className="space-y-6">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight">
             {portfolioData.personal.roleHeadline[0]}
           </h1>
-          <h2 className="text-xl md:text-2xl text-foreground-muted font-medium">
-            AI-assisted product builder tập trung vào nền tảng booking, vận hành marketplace, admin dashboards, API integrations và tối ưu hiệu năng trải nghiệm người dùng.
+          <h2 className="text-xl md:text-2xl text-foreground-muted font-medium leading-relaxed">
+            {portfolioData.personal.shortDescription}
           </h2>
         </div>
 
-        <p className="text-base text-foreground-muted max-w-2xl leading-relaxed">
-          {portfolioData.personal.shortDescription}
+        <p className="text-base md:text-lg text-foreground-muted max-w-2xl leading-relaxed">
+          {portfolioData.personal.heroCopy}
         </p>
 
         <div className="flex flex-wrap gap-4 pt-4">
           <Button size="lg" onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })}>
             Xem dự án
-          </Button>
-          <Button variant="outline" size="lg" onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}>
-            Liên hệ với tôi
           </Button>
         </div>
       </motion.div>
@@ -47,25 +44,28 @@ export function HeroSection() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6, delay: 0.2 }}
-        className="w-full lg:w-[450px]"
+        className="w-full lg:w-[500px] xl:w-[650px] shrink-0"
       >
-        <Card className="relative overflow-hidden bg-gradient-to-b from-surface to-background border-gold-primary/20 p-2">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gold-primary/5 rounded-full blur-3xl"></div>
-          <CardHeader className="pb-4">
-            <CardTitle className="text-sm uppercase tracking-wider text-gold-primary flex items-center">
-              <span className="w-1.5 h-1.5 rounded-full bg-gold-primary mr-2"></span>
-              System Builder Profile
+        <Card className="relative overflow-hidden bg-gradient-to-b from-surface to-background border-gold-primary/30 p-4 md:p-8 shadow-2xl">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-gold-primary/10 rounded-full blur-[80px] pointer-events-none"></div>
+          <CardHeader className="pb-8">
+            <CardTitle className="text-lg uppercase tracking-widest text-gold-primary flex items-center font-bold">
+              <span className="w-2.5 h-2.5 rounded-full bg-gold-primary mr-3 shadow-[0_0_12px_rgba(212,175,55,0.6)]"></span>
+              System Builder Skill Map
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4 relative z-10">
+          <CardContent className="grid grid-cols-1 gap-y-8 relative z-10">
             {portfolioData.systemStatus.map((item, i) => (
-              <div key={i} className="flex items-center justify-between group">
-                <span className="text-sm font-medium text-foreground group-hover:text-gold-light transition-colors">
+              <div key={i} className="flex flex-col space-y-3 group">
+                <span className="text-lg font-bold text-foreground group-hover:text-gold-light transition-colors">
                   {item.name}
                 </span>
-                <div className="flex items-center gap-3">
-                  <span className="text-xs text-foreground-muted">{item.label}</span>
-                  {item.active && <span className="w-1.5 h-1.5 rounded-full bg-green-accent shadow-[0_0_5px_#2ECC71]"></span>}
+                <div className="flex flex-wrap gap-2">
+                  {item.chips.map((chip, j) => (
+                    <Badge key={j} variant="outline" className="bg-surface/50 text-xs py-1 border-border-gold/30 text-foreground-muted font-medium group-hover:border-gold-primary/40 transition-colors">
+                      {chip}
+                    </Badge>
+                  ))}
                 </div>
               </div>
             ))}
