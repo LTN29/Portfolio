@@ -114,7 +114,7 @@ export const services = [
  * Lấy key miễn phí: vào https://web3forms.com, nhập email của bạn, key được gửi về hộp thư.
  * Nếu để trống → nút gửi mở ứng dụng email của khách với nội dung soạn sẵn gửi tới profile.email. */
 export const contactForm = {
-  web3formsKey: "",
+  web3formsKey: "1fe70fa4-b531-44b8-a480-eae4fecdbc43", // key công khai của Web3Forms — thư gửi về email đã đăng ký
   projectTypes: ["AI Chatbot / Livestream", "AI Agent & Automation", "Website", "Mobile App", "Phần mềm quản lý", "Khác"],
   budgets: ["Dưới 20 triệu", "20–50 triệu", "50–100 triệu", "Trên 100 triệu", "Chưa rõ"],
 };
