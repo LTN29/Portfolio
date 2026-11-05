@@ -13,7 +13,7 @@ import { useScrollMotion } from "@/components/motion/use-scroll-motion";
 export function Showcase() {
   const section = useRef<HTMLElement>(null);
   const video = useRef<HTMLVideoElement>(null);
-  const { muted, toggle: toggleSound } = useAutoplayVideo(video, section);
+  const { muted, toggle: toggleSound } = useAutoplayVideo(video, section, withBase(showcase.video));
 
   useScrollMotion(section, ({ gsap, root }) => {
     const mm = gsap.matchMedia();
@@ -59,11 +59,10 @@ export function Showcase() {
             <div className="pf-show__frame">
               <video
                 ref={video}
-                src={withBase(showcase.video)}
                 poster={withBase(showcase.poster)}
                 loop
                 playsInline
-                preload="metadata"
+                preload="none"
                 aria-label={`Video giới thiệu ${showcase.name}`}
               />
               <button type="button" className="pf-show__sound" onClick={toggleSound} aria-pressed={!muted}>

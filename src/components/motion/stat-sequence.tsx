@@ -24,7 +24,7 @@ export function StatSequence() {
       scrollTrigger: {
         trigger: root,
         start: "top top",
-        end: () => `+=${window.innerHeight * slides.length * (window.innerWidth < 800 ? 0.6 : 0.85)}`,
+        end: () => `+=${window.innerHeight * slides.length * (window.innerWidth < 800 ? 0.42 : 0.85)}`,
         pin: true,
         scrub: 0.6,
         invalidateOnRefresh: true,

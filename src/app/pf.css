@@ -662,5 +662,60 @@
   .pf-contact__head, .pf-form, .pf-contact__done { grid-column: 1 / -1; position: static; }
 }
 @media (max-width: 600px) { .pf-form { grid-template-columns: 1fr; } }
-.pf-contact__head { grid-column: 1 / span 6; }
+@media (min-width: 1001px) { .pf-contact__head { grid-column: 1 / span 6; } }
 .lux.lux .pf-contact__head .sg-display { font-size: clamp(40px, 4.2vw, 80px); }
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE — tối ưu cho điện thoại (≤ 800px)
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width: 800px) {
+  /* tiêu đề lớn: vừa khung 390px, không lẻ một chữ */
+  .lux.lux .sg-display,
+  .lux.lux .pf-story-open .sg-display,
+  .lux.lux .pf-services__title,
+  .lux.lux .pf-contact__head .sg-display { font-size: clamp(32px, 9.2vw, 46px); line-height: 1.1; }
+  .lux.lux .pf-feature__name { font-size: clamp(38px, 11vw, 52px); }
+  .sg-section-head { padding-bottom: 36px; }
+
+  /* chữ chạy sóng: không ghim, câu hiện đủ và sáng dần */
+  .wave-section.is-motion { height: auto; padding: 96px var(--sg-gutter) 72px; display: block; }
+  .wave-section.is-motion .wave-kicker { position: static; margin-bottom: 24px; }
+  .wave-section.is-motion .wave-viewport { perspective: none; }
+  .wave-section.is-motion .wave-track { display: block; white-space: normal; transform: none !important; }
+  .wave-section.is-motion .wave-text { font-size: clamp(34px, 10vw, 46px); line-height: 1.12; }
+  .wave-section.is-motion .wave-char { transform: none !important; }
+
+  /* dải gradient: một thẻ tĩnh thay cho 3 màn hình ghim */
+  .band-section.is-motion { height: auto; padding: 24px var(--sg-gutter) 72px; }
+  .band-section.is-motion .band-stage {
+    height: auto;
+    min-height: 62svh;
+    padding: 48px 24px;
+    border-radius: 24px;
+    overflow: hidden;
+    background:
+      radial-gradient(70% 80% at 22% 30%, #00e5e5 0%, transparent 60%),
+      radial-gradient(60% 70% at 78% 65%, #4f46e5 0%, transparent 62%),
+      linear-gradient(130deg, #0ea5e9 0%, #0062a3 100%);
+  }
+  .band-section.is-motion .band-bar, .band-section.is-motion .band-flood, .band-section.is-motion .band-word--brand { display: none; }
+  .band-section.is-motion .band-word--promise { position: static; color: #fff; font-size: clamp(40px, 12vw, 56px); }
+
+  /* vùng bấm ≥ 44px */
+  .pf-pills button { min-height: 44px; padding: 0 16px; }
+  .pf-show__sound { height: 44px; padding: 0 18px; }
+  .lux .sg-nav__logo.pf-logo { padding: 10px 0; }
+  .pf-footer__intro .sg-link { padding: 8px 0; }
+
+  /* form gọn hơn */
+  .pf-field input, .pf-field textarea { font-size: 18px; }   /* ≥16px để iOS không tự phóng to khi gõ */
+  .pf-contact { padding-block: 72px; }
+
+  /* minh hoạ không bị cắt mép */
+  .pf-feature__media .pv-orch { font-size: 0.82em; }
+  .pf-feature__media .pv-gateway { font-size: 0.86em; }
+
+  /* showcase: bớt khoảng trống */
+  .pf-show__stage { min-height: 0; }
+  .pf-show__word { font-size: 46vw; opacity: 0.6; }
+}

@@ -18,6 +18,15 @@ export function WaveStatement() {
     const chars = gsap.utils.toArray<HTMLElement>(".wave-char", root);
     if (!track || !chars.length) return;
 
+    // Điện thoại: không ghim — câu hiện đầy đủ, các chữ sáng dần theo nhịp cuộn
+    if (window.innerWidth < 800) {
+      gsap.fromTo(chars, { opacity: 0.12 }, {
+        opacity: 1, ease: "none", stagger: 0.02,
+        scrollTrigger: { trigger: root, start: "top 80%", end: "bottom 55%", scrub: 0.5 },
+      });
+      return;
+    }
+
     let offsets: number[] = [];
     let widths: number[] = [];
     const measure = () => {

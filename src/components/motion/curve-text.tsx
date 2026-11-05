@@ -22,7 +22,7 @@ export function CurveText() {
 
   useScrollMotion(section, ({ gsap, root }) => {
     const mm = gsap.matchMedia();
-    const pinLength = () => `+=${window.innerHeight * (window.innerWidth < 800 ? 1.6 : 2.6)}`;
+    const pinLength = () => `+=${window.innerHeight * (window.innerWidth < 800 ? 1.1 : 2.6)}`;
 
     // Phones: the 3D helix would be tiny and mostly off-screen, so the sentence is set large
     // and lights up word by word while the section is pinned.

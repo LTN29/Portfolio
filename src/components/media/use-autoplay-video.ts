@@ -40,7 +40,16 @@ function toggleMute(el: HTMLVideoElement) {
   if (el.paused) void el.play().catch(() => undefined);
 }
 
-export function useAutoplayVideo(video: RefObject<HTMLVideoElement | null>, root: RefObject<HTMLElement | null>) {
+/* Màn hình nhỏ dùng bản nhẹ "<tên>-m.mp4"; file chỉ được tải khi video sắp lướt tới. */
+function pickSource(src: string) {
+  return window.matchMedia("(max-width: 800px)").matches ? src.replace(/\.mp4$/, "-m.mp4") : src;
+}
+
+function attachSource(el: HTMLVideoElement, src: string) {
+  if (!el.getAttribute("src")) el.setAttribute("src", pickSource(src));
+}
+
+export function useAutoplayVideo(video: RefObject<HTMLVideoElement | null>, root: RefObject<HTMLElement | null>, src: string) {
   const [muted, setMuted] = useState(true);
 
   useEffect(() => {
@@ -49,8 +58,13 @@ export function useAutoplayVideo(video: RefObject<HTMLVideoElement | null>, root
     if (!el || !box) return;
     const sync = () => setMuted(el.muted);
     el.addEventListener("volumechange", sync);
+    // bắt đầu tải sớm hơn một chút (khi còn cách ~1 màn hình) để lướt tới là phát ngay
+    const preload = new IntersectionObserver(([entry]) => {
+      if (entry?.isIntersecting) { attachSource(el, src); preload.disconnect(); }
+    }, { rootMargin: "100% 0px" });
+    preload.observe(box);
     const observer = new IntersectionObserver(([entry]) => {
-      if (entry?.isIntersecting) void play(el).then(sync);
+      if (entry?.isIntersecting) { attachSource(el, src); void play(el).then(sync); }
       else {
         el.pause();
         if (current === el) current = null;
@@ -58,11 +72,12 @@ export function useAutoplayVideo(video: RefObject<HTMLVideoElement | null>, root
     }, { threshold: 0.45 });
     observer.observe(box);
     return () => {
+      preload.disconnect();
       observer.disconnect();
       el.removeEventListener("volumechange", sync);
       if (current === el) current = null;
     };
-  }, [video, root]);
+  }, [video, root, src]);
 
   const toggle = () => {
     if (video.current) toggleMute(video.current);

@@ -12,6 +12,14 @@ export function GradientBand() {
   const section = useRef<HTMLElement>(null);
 
   useScrollMotion(section, ({ gsap, root }) => {
+    // Điện thoại: thẻ gradient tĩnh, chỉ cho hai dòng chữ trồi lên — không ghim 3 màn hình
+    if (window.innerWidth < 800) {
+      gsap.fromTo(root.querySelectorAll(".band-word--promise .char-line"), { yPercent: 60, opacity: 0 }, {
+        yPercent: 0, opacity: 1, stagger: 0.12, duration: 1, ease: "expo.out",
+        scrollTrigger: { trigger: root, start: "top 75%", once: true },
+      });
+      return;
+    }
     const tl = gsap.timeline({
       defaults: { ease: "power3.inOut" },
       scrollTrigger: {
