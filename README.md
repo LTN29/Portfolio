@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio — Lê Thanh Nhân
 
-## Getting Started
+Trang giới thiệu cá nhân: Next.js 16 (App Router, xuất tĩnh), React 19, TypeScript, CSS thuần.
+Chuyển động bằng GSAP ScrollTrigger + Lenis; intro 3D bằng three.js qua React Three Fiber.
+Ngôn ngữ thiết kế kế thừa landing SIMIGO (giấy & mực, một họ chữ Be Vietnam Pro, đường kẻ mảnh),
+thêm JetBrains Mono cho nhãn kỹ thuật và minh hoạ động cho từng dự án.
 
-First, run the development server:
+## Chạy
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev         # http://localhost:3000
+npm run lint && npm run typecheck
+npm run build       # xuất tĩnh ra out/
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Sửa nội dung
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Toàn bộ chữ nằm trong `src/data/portfolio.ts`: thông tin cá nhân (điền `email`, `phone` để hiện ở footer),
+số liệu, dự án AI, danh sách hệ thống, luồng kiến trúc, bộ công cụ và nguyên tắc.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Cấu trúc
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/app/            layout (font), page (ghép section), globals.css + sg.css (hệ thiết kế), pf.css (lớp riêng)
+src/components/
+  motion/           intro 3D kính ">_", chữ chạy sóng, số liệu ghim, dải gradient, chữ xoắn 3D, Lenis/reveal
+  navigation/       thanh menu (trong suốt trên intro → viên kính khi cuộn)
+  sections/         hero, câu chuyện, dự án AI, hệ thống, kiến trúc, nguyên tắc, footer
+  visuals/          minh hoạ HTML/CSS cho từng dự án (không cần ảnh chụp)
+src/data/           nội dung
+```

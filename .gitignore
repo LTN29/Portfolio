@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# video gốc đã chỉnh (bản nặng, chỉ lưu trên máy)
+/video-da-chinh-sua/
