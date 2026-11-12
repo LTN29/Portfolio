@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { useScrollMotion } from "@/components/motion/use-scroll-motion";
 
-const sentence = "Có ý tưởng? Cùng biến nó thành sản phẩm chạy thật.";
+const sentence = "Từ một ý tưởng nhỏ đến sản phẩm được dùng mỗi ngày.";
 
 function graphemes(text: string) {
   if (typeof Intl !== "undefined" && "Segmenter" in Intl) {
@@ -22,14 +22,12 @@ export function CurveText() {
 
   useScrollMotion(section, ({ gsap, root }) => {
     const mm = gsap.matchMedia();
-    const pinLength = () => `+=${window.innerHeight * (window.innerWidth < 800 ? 1.1 : 2.6)}`;
 
-    // Phones: the 3D helix would be tiny and mostly off-screen, so the sentence is set large
-    // and lights up word by word while the section is pinned.
+    // Điện thoại: không ghim màn hình trước form liên hệ — chữ sáng dần tự nhiên khi cuộn tới
     mm.add("(max-width: 799px)", () => {
-      gsap.fromTo(root.querySelectorAll(".curve-lines span"), { opacity: 0.12, yPercent: 30 }, {
-        opacity: 1, yPercent: 0, stagger: 0.1, ease: "power2.out",
-        scrollTrigger: { trigger: root, start: "top top", end: pinLength, pin: true, scrub: 0.6, invalidateOnRefresh: true },
+      gsap.fromTo(root.querySelectorAll(".curve-lines span"), { opacity: 0.15, yPercent: 24 }, {
+        opacity: 1, yPercent: 0, stagger: 0.08, ease: "power2.out",
+        scrollTrigger: { trigger: root, start: "top 80%", end: "bottom 60%", scrub: 0.4 },
       });
     });
 
@@ -39,7 +37,6 @@ export function CurveText() {
       const rise = 5.5; // px per letter, makes it a helix
       let angles: number[] = [];
       let total = 0;
-      // Place letters by their real width so the spacing stays natural on the curve
       const measure = () => {
         const r = radius();
         let acc = 0;
@@ -52,28 +49,34 @@ export function CurveText() {
         total = acc;
       };
       measure();
-      const state = { offset: -70 };
+      const state = { offset: -65 };
 
       const render = () => {
         const r = radius();
-        els.forEach((el, i) => {
+        for (let i = 0; i < els.length; i++) {
+          const el = els[i];
           const angle = angles[i] - state.offset;
-          const visible = angle > -95 && angle < 95;
-          el.style.opacity = visible ? String(gsap.utils.clamp(0, 1, 1.4 - Math.abs(angle) / 80)) : "0";
-          el.style.transform = `translate(-50%, -50%) rotateY(${angle}deg) translateZ(${r}px) translateY(${(i - els.length / 2) * rise}px)`;
-        });
+          const visible = angle > -92 && angle < 92;
+          if (!visible) {
+            if (el.style.opacity !== "0") el.style.opacity = "0";
+            continue;
+          }
+          const op = gsap.utils.clamp(0, 1, 1.38 - Math.abs(angle) / 78);
+          el.style.opacity = op > 0.99 ? "1" : op.toFixed(3);
+          el.style.transform = `translate3d(-50%, -50%, 0) rotateY(${angle.toFixed(1)}deg) translateZ(${r.toFixed(0)}px) translateY(${((i - els.length / 2) * rise).toFixed(1)}px)`;
+        }
       };
 
       gsap.to(state, {
-        offset: () => total + 40,
+        offset: () => total + 35,
         ease: "none",
         onUpdate: render,
         scrollTrigger: {
           trigger: root,
           start: "top top",
-          end: pinLength,
+          end: () => `+=${window.innerHeight * 1.75}`,
           pin: true,
-          scrub: 0.9,
+          scrub: 0.7,
           invalidateOnRefresh: true,
           onRefresh: () => { measure(); render(); },
         },
@@ -85,7 +88,7 @@ export function CurveText() {
 
   return (
     <section ref={section} className="curve-section" aria-label={sentence}>
-      <p className="curve-kicker">BƯỚC TIẾP THEO?</p>
+      <p className="curve-kicker">LTN · BUILD · SHIP · OPERATE</p>
       <div className="curve-stage" aria-hidden="true">
         <div className="curve-ring">
           {chars.map((char, i) => (
@@ -104,7 +107,7 @@ export function CurveText() {
           <span key={i} style={{ "--hue": `${i / Math.max(1, all.length - 1)}` } as React.CSSProperties}>{word} </span>
         ))}
       </p>
-      <a className="curve-cta" href="#contact">Gửi yêu cầu</a>
+      <a className="curve-cta" href="#contact">Liên hệ</a>
     </section>
   );
 }

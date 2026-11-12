@@ -21,29 +21,30 @@ const TEXT_A: TextLine[] = [
   { text: "Thanh Nhân.", weight: 600, size: 300, y: 420, letter: -18 },
 ];
 const TEXT_B: TextLine[] = [
-  { text: "Đưa AI vào", weight: 300, size: 230, y: 380, letter: -12 },
-  { text: "vận hành thật.", weight: 300, size: 230, y: 640, letter: -12 },
+  { text: "Ý tưởng thành", weight: 300, size: 230, y: 380, letter: -12 },
+  { text: "sản phẩm thật.", weight: 300, size: 230, y: 640, letter: -12 },
 ];
 
-function makeTextTexture(lines: TextLine[]) {
+function makeTextTexture(lines: TextLine[], lowTier = false) {
+  const scale = lowTier ? 0.5 : 1;
   const canvas = document.createElement("canvas");
-  canvas.width = 2048;
-  canvas.height = 1024;
+  canvas.width = 2048 * scale;
+  canvas.height = 1024 * scale;
   const ctx = canvas.getContext("2d")!;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.fillStyle = "#ffffff";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   for (const line of lines) {
-    ctx.font = `${line.style ?? ""} ${line.weight} ${line.size}px ${line.family ?? sans()}`;
+    ctx.font = `${line.style ?? ""} ${line.weight} ${Math.round(line.size * scale)}px ${line.family ?? sans()}`;
     if ("letterSpacing" in ctx && line.letter !== undefined) {
-      (ctx as CanvasRenderingContext2D & { letterSpacing: string }).letterSpacing = `${line.letter}px`;
+      (ctx as CanvasRenderingContext2D & { letterSpacing: string }).letterSpacing = `${line.letter * scale}px`;
     }
-    ctx.fillText(line.text, canvas.width / 2, line.y);
+    ctx.fillText(line.text, canvas.width / 2, line.y * scale);
   }
   const texture = new THREE.CanvasTexture(canvas);
   texture.colorSpace = THREE.NoColorSpace;
-  texture.anisotropy = 4;
+  texture.anisotropy = lowTier ? 2 : 4;
   return texture;
 }
 
@@ -108,17 +109,18 @@ const fragmentShader = /* glsl */ `
     float n1 = snoise(q * 0.85 + vec2(t * 1.3, -t));
     float n2 = snoise(q * 1.4 - vec2(t, t * 0.6) + 9.1);
 
-    vec3 navy   = vec3(0.016, 0.055, 0.125);
-    vec3 deep   = vec3(0.000, 0.384, 0.640);
-    vec3 blue   = vec3(0.055, 0.647, 0.914);
-    vec3 aqua   = vec3(0.000, 0.898, 0.898);
-    vec3 indigo = vec3(0.420, 0.300, 0.950);
+    vec3 obsidian  = vec3(0.024, 0.024, 0.028);
+    vec3 gunmetal  = vec3(0.068, 0.072, 0.082);
+    vec3 titanium  = vec3(0.145, 0.152, 0.168);
+    vec3 champagne = vec3(0.835, 0.722, 0.490);
+    vec3 bronze    = vec3(0.240, 0.195, 0.125);
 
-    vec3 col = mix(deep, blue, smoothstep(-0.6, 0.7, n1));
-    col = mix(col, aqua, smoothstep(0.25, 0.95, n2) * 0.85);
-    col = mix(col, indigo, smoothstep(0.35, 1.0, -n1 * 0.8 + n2 * 0.4) * 0.55);
+    vec3 col = mix(obsidian, gunmetal, smoothstep(-0.65, 0.65, n1));
+    col = mix(col, titanium, smoothstep(0.05, 0.9, n1 * 0.5 + n2 * 0.5) * 0.55);
+    col = mix(col, bronze, smoothstep(0.25, 0.95, -n1 * 0.7 + n2 * 0.4) * 0.42);
+    col = mix(col, champagne, smoothstep(0.55, 1.0, n2) * 0.18);
     // darken toward the bottom so copy stays legible, and as the intro scrolls away
-    col = mix(col, navy, smoothstep(0.55, -0.15, uv.y) * 0.55 + uProgress * 0.35);
+    col = mix(col, obsidian, smoothstep(0.55, -0.15, uv.y) * 0.68 + uProgress * 0.45);
 
     // ── Text: lens under the cursor, chromatic split, noise-dissolve transitions, sheen, glow ──
     vec2 tuv = (uv - 0.5);
@@ -159,11 +161,11 @@ const fragmentShader = /* glsl */ `
     float band = fract((uv.x * 0.9 + uv.y * 0.45) * 0.6 - uTime * 0.09);
     float sheen = smoothstep(0.0, 0.05, band) * (1.0 - smoothstep(0.05, 0.12, band));
 
-    vec3 white = vec3(0.97, 0.995, 1.0);
-    col += aqua * glow * 0.28;                                  // soft halo behind letters
-    col = mix(col, white, clamp(text, 0.0, 1.0) * 0.95);         // letters with RGB fringes
-    col += (vec3(0.75, 1.0, 1.0) * sheen * 0.55 + lens * 0.08) * max(text.g, 0.0);
-    col += aqua * (seamA * max(aGlow, 0.0) + seamB * bGlow) * 1.4; // dissolve seam light
+    vec3 white = vec3(0.96, 0.96, 0.97);
+    col += champagne * glow * 0.18;                             // subtle champagne halo behind letters
+    col = mix(col, white, clamp(text, 0.0, 1.0) * 0.95);        // crisp platinum letters
+    col += (vec3(0.95, 0.88, 0.74) * sheen * 0.48 + lens * 0.08) * max(text.g, 0.0);
+    col += champagne * (seamA * max(aGlow, 0.0) + seamB * bGlow) * 1.1; // dissolve seam light
 
     // Film grain
     float grain = hash(uv * vec2(1920.0, 1080.0) + fract(uTime) * 100.0) - 0.5;
@@ -173,10 +175,11 @@ const fragmentShader = /* glsl */ `
   }
 `;
 
-function GradientBackdrop({ progressRef, mouse, velocity }: { progressRef: IntroProgress; mouse: React.RefObject<THREE.Vector2>; velocity: React.RefObject<number> }) {
+function GradientBackdrop({ progressRef, mouse, velocity, tier }: { progressRef: IntroProgress; mouse: React.RefObject<THREE.Vector2>; velocity: React.RefObject<number>; tier: GpuTier }) {
   const { viewport, camera, size } = useThree();
   const material = useRef<THREE.ShaderMaterial>(null);
   const distance = 6;
+  const low = tier === "low";
   const planeSize = useMemo(() => {
     const cam = camera as THREE.PerspectiveCamera;
     const height = 2 * Math.tan(THREE.MathUtils.degToRad(cam.fov / 2)) * (cam.position.z + distance);
@@ -184,8 +187,8 @@ function GradientBackdrop({ progressRef, mouse, velocity }: { progressRef: Intro
   }, [camera, size.width, size.height]);
 
   const uniforms = useMemo(() => {
-    const textA = makeTextTexture(TEXT_A);
-    const textB = makeTextTexture(TEXT_B);
+    const textA = makeTextTexture(TEXT_A, low);
+    const textB = makeTextTexture(TEXT_B, low);
     return {
       uTime: { value: 0 },
       uMouse: { value: new THREE.Vector2(0.5, 0.5) },
@@ -199,7 +202,7 @@ function GradientBackdrop({ progressRef, mouse, velocity }: { progressRef: Intro
       uVel: { value: 0 },
       uLens: { value: new THREE.Vector2(0.5, 0.5) },
     };
-  }, []);
+  }, [low]);
 
   // Re-render the text once the web font is ready (canvas falls back to system font before that)
   useEffect(() => {
@@ -207,20 +210,20 @@ function GradientBackdrop({ progressRef, mouse, velocity }: { progressRef: Intro
     if (typeof document === "undefined" || !document.fonts) return;
     Promise.all([
       document.fonts.load(`600 120px ${brandFamily()}`, "Thanh Nhân."),
-      document.fonts.load(`300 120px ${brandFamily()}`, "Đưa AI vào vận hành thật."),
+      document.fonts.load(`300 120px ${brandFamily()}`, "Ý tưởng thành sản phẩm thật."),
     ]).then(() => {
       if (!alive) return;
       const prevA = uniforms.uTextA.value;
       const prevB = uniforms.uTextB.value;
-      uniforms.uTextA.value = makeTextTexture(TEXT_A);
-      uniforms.uTextB.value = makeTextTexture(TEXT_B);
+      uniforms.uTextA.value = makeTextTexture(TEXT_A, low);
+      uniforms.uTextB.value = makeTextTexture(TEXT_B, low);
       prevA.dispose();
       prevB.dispose();
     }).catch(() => undefined);
     return () => {
       alive = false;
     };
-  }, [uniforms]);
+  }, [uniforms, low]);
 
   useEffect(() => () => {
     uniforms.uTextA.value.dispose();
@@ -313,7 +316,7 @@ function Dust({ progressRef, mouse, count }: { progressRef: IntroProgress; mouse
         void main() {
           float d = length(gl_PointCoord - 0.5);
           float a = smoothstep(0.5, 0.0, d) * vA * uFade;
-          gl_FragColor = vec4(vec3(0.75, 1.0, 1.0), a);
+          gl_FragColor = vec4(vec3(0.90, 0.84, 0.72), a * 0.75);
         }
       `,
     });
@@ -394,7 +397,7 @@ function GlassPrompt({ progressRef, mouse, tier }: { progressRef: IntroProgress;
       void main(){
         vec2 d = (vUv - 0.5) * vec2(1.0, 2.2);
         float a = smoothstep(0.5, 0.0, length(d));
-        gl_FragColor = vec4(vec3(0.35, 0.95, 1.0), a * a * uA);
+        gl_FragColor = vec4(vec3(0.84, 0.72, 0.49), a * a * uA * 0.65);
       }`,
   }), []);
   useEffect(() => () => glowMat.dispose(), [glowMat]);
@@ -429,6 +432,24 @@ function GlassPrompt({ progressRef, mouse, tier }: { progressRef: IntroProgress;
     }
   });
 
+  const glassMat = useMemo(() => new THREE.MeshPhysicalMaterial({
+    color: "#f2f3f5",
+    transmission: 1,
+    thickness: 1.4,
+    roughness: 0.03,
+    ior: 1.52,
+    dispersion: tier === "low" ? 0 : 3.5,
+    iridescence: tier === "low" ? 0 : 0.25,
+    iridescenceIOR: 1.3,
+    clearcoat: 1,
+    clearcoatRoughness: 0.04,
+    attenuationColor: new THREE.Color("#d6b87c"),
+    attenuationDistance: 3.2,
+    envMapIntensity: 1.3,
+    specularIntensity: 1,
+  }), [tier]);
+  useEffect(() => () => glassMat.dispose(), [glassMat]);
+
   return (
     <>
     <mesh ref={glow} material={glowMat} renderOrder={-1}>
@@ -436,24 +457,7 @@ function GlassPrompt({ progressRef, mouse, tier }: { progressRef: IntroProgress;
     </mesh>
     <group ref={group}>
       {[chevron, cursorGeo].map((geo, i) => (
-      <mesh key={i} ref={i === 1 ? cursor : undefined} geometry={geo}>
-        <meshPhysicalMaterial
-          color="#e9fdff"
-          transmission={1}
-          thickness={1.4}
-          roughness={0.04}
-          ior={1.5}
-          dispersion={tier === "low" ? 0 : 4}
-          iridescence={tier === "low" ? 0 : 0.35}
-          iridescenceIOR={1.3}
-          clearcoat={1}
-          clearcoatRoughness={0.05}
-          attenuationColor="#8ff6ff"
-          attenuationDistance={2.4}
-          envMapIntensity={1.2}
-          specularIntensity={1}
-        />
-      </mesh>
+        <mesh key={i} ref={i === 1 ? cursor : undefined} geometry={geo} material={glassMat} />
       ))}
     </group>
     </>
@@ -467,6 +471,18 @@ function Orbs({ progressRef, tier }: { progressRef: IntroProgress; tier: GpuTier
     { pos: [3.4, -1.6, -0.6], r: 0.22, speed: 0.8 },
     { pos: [2.6, 2.1, -2.2], r: 0.16, speed: 1.1 },
   ] as const, []);
+  const orbMat = useMemo(() => new THREE.MeshPhysicalMaterial({
+    color: "#d8dade",
+    transparent: true,
+    opacity: 0.36,
+    roughness: 0.05,
+    metalness: 0.35,
+    clearcoat: 1,
+    clearcoatRoughness: 0.04,
+    iridescence: tier === "low" ? 0 : 0.3,
+    envMapIntensity: 1.4,
+  }), [tier]);
+  useEffect(() => () => orbMat.dispose(), [orbMat]);
   useFrame((state) => {
     const t = state.clock.elapsedTime;
     refs.current.forEach((mesh, i) => {
@@ -480,9 +496,8 @@ function Orbs({ progressRef, tier }: { progressRef: IntroProgress; tier: GpuTier
   return (
     <>
       {orbs.map((o, i) => (
-        <mesh key={i} ref={(el) => { if (el) refs.current[i] = el; }}>
-          <sphereGeometry args={[o.r, tier === "low" ? 24 : 40, tier === "low" ? 24 : 40]} />
-          <meshPhysicalMaterial color="#ffffff" transmission={1} thickness={0.6} roughness={0.02} ior={1.4} iridescence={0.6} envMapIntensity={1.1} />
+        <mesh key={i} ref={(el) => { if (el) refs.current[i] = el; }} material={orbMat}>
+          <sphereGeometry args={[o.r, tier === "low" ? 20 : 32, tier === "low" ? 20 : 32]} />
         </mesh>
       ))}
     </>
@@ -508,8 +523,18 @@ export function BrandIntroScene({ progressRef, active, still, tier }: { progress
   const velocity = useRef(0);
 
   useEffect(() => {
+    if (!active) return;
     let lastX = 0.5, lastY = 0.5, lastT = performance.now();
     let decay = 0;
+    const tick = () => {
+      velocity.current *= 0.9;
+      if (velocity.current > 0.001) {
+        decay = requestAnimationFrame(tick);
+      } else {
+        velocity.current = 0;
+        decay = 0;
+      }
+    };
     const onMove = (event: PointerEvent) => {
       const x = event.clientX / window.innerWidth;
       const y = 1 - event.clientY / window.innerHeight;
@@ -518,16 +543,14 @@ export function BrandIntroScene({ progressRef, active, still, tier }: { progress
       velocity.current = Math.min(1, Math.hypot(x - lastX, y - lastY) / dt * 40);
       lastX = x; lastY = y; lastT = now;
       mouse.current.set(x, y);
+      if (!decay) decay = requestAnimationFrame(tick);
     };
-    // let the chromatic split relax when the pointer stops
-    const tick = () => { velocity.current *= 0.92; decay = requestAnimationFrame(tick); };
-    decay = requestAnimationFrame(tick);
     window.addEventListener("pointermove", onMove, { passive: true });
     return () => {
-      cancelAnimationFrame(decay);
+      if (decay) cancelAnimationFrame(decay);
       window.removeEventListener("pointermove", onMove);
     };
-  }, []);
+  }, [active]);
 
   return (
     <Canvas
@@ -541,10 +564,10 @@ export function BrandIntroScene({ progressRef, active, still, tier }: { progress
       <AdaptiveQuality tier={tier} />
       <EnvironmentLight />
       <ambientLight intensity={0.4} />
-      <directionalLight position={[4, 6, 6]} intensity={1.6} />
-      <directionalLight position={[-6, -2, 3]} intensity={0.6} color="#7cf3ff" />
-      <GradientBackdrop progressRef={progressRef} mouse={mouse} velocity={velocity} />
-      <Dust progressRef={progressRef} mouse={mouse} count={tier === "low" ? 200 : 420} />
+      <directionalLight position={[4, 6, 6]} intensity={1.6} color="#f5f5f7" />
+      <directionalLight position={[-6, -2, 3]} intensity={0.65} color="#d6b87c" />
+      <GradientBackdrop progressRef={progressRef} mouse={mouse} velocity={velocity} tier={tier} />
+      <Dust progressRef={progressRef} mouse={mouse} count={tier === "low" ? 160 : 340} />
       <GlassPrompt progressRef={progressRef} mouse={mouse} tier={tier} />
       <Orbs progressRef={progressRef} tier={tier} />
     </Canvas>

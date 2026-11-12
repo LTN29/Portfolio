@@ -17,6 +17,7 @@ export function SiteNav() {
   const [compact, setCompact] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [dark, setDark] = useState(true);
+  const [inIntro, setInIntro] = useState(true);
   const [active, setActive] = useState<string | null>(null);
 
   // Scroll state — booleans only change occasionally, progress is written straight to CSS
@@ -28,12 +29,13 @@ export function SiteNav() {
       const y = window.scrollY;
       const intro = document.querySelector<HTMLElement>(".intro-section");
       const introEnd = (intro?.offsetHeight ?? 0) - 90;
-      const goingDown = y > lastY + 4;
-      const goingUp = y < lastY - 4;
+      const goingDown = y > lastY + 6;
+      const goingUp = y < lastY - 6;
       setCompact(y > 60);
-      setDark(Boolean(intro) && y < introEnd);
-      if (goingDown && y > 480) setHidden(true);
-      else if (goingUp || y < 480) setHidden(false);
+      setInIntro(Boolean(intro) && y < introEnd);
+      setDark(true);
+      if (goingDown && y > 520) setHidden(true);
+      else if (goingUp || y < 520) setHidden(false);
       if (goingDown || goingUp) lastY = y;
       const max = document.documentElement.scrollHeight - window.innerHeight;
       bar.current?.style.setProperty("--p", max > 0 ? (y / max).toFixed(4) : "0");
@@ -76,7 +78,7 @@ export function SiteNav() {
     };
   }, [open]);
 
-  const current = dark ? null : active;
+  const current = inIntro ? null : active;
   const cls = [
     "sg-nav",
     compact && "is-compact",
@@ -103,7 +105,7 @@ export function SiteNav() {
 
         <div className="sg-nav__right">
           <SoundToggle />
-          <a className="sg-nav__cta" href="#contact">Gửi yêu cầu</a>
+          <a className="sg-nav__cta" href="#contact">Liên hệ</a>
           <button
             className="sg-nav__menu"
             type="button"
@@ -129,7 +131,7 @@ export function SiteNav() {
               </li>
             ))}
           </ol>
-          <a className="sg-btn" href="#contact" tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>Gửi yêu cầu</a>
+          <a className="sg-btn" href="#contact" tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>Liên hệ</a>
         </div>
       </div>
     </header>

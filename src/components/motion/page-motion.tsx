@@ -46,15 +46,29 @@ export function PageMotion() {
     // mobile address-bar show/hide must not re-measure every pinned section
     ScrollTrigger.config({ ignoreMobileResize: true });
 
+    let onAnchorClick: ((e: MouseEvent) => void) | undefined;
+
     if (window.matchMedia("(min-width: 801px) and (pointer: fine)").matches) {
       void import("lenis").then(({ default: LenisCtor }) => {
         if (cancelled) return;
-        const smooth = new LenisCtor({ autoRaf: false, lerp: 0.085, wheelMultiplier: 0.9 });
+        const smooth = new LenisCtor({ autoRaf: false, lerp: 0.095, wheelMultiplier: 0.95 });
         lenis = smooth;
         smooth.on("scroll", ScrollTrigger.update);
         ticker = (time) => smooth.raf(time * 1000);
         gsap.ticker.add(ticker);
         gsap.ticker.lagSmoothing(0);
+
+        onAnchorClick = (e: MouseEvent) => {
+          const link = (e.target as Element | null)?.closest<HTMLAnchorElement>('a[href^="#"]');
+          if (!link) return;
+          const href = link.getAttribute("href");
+          if (!href || href === "#") return;
+          const target = href === "#top" ? document.body : document.querySelector<HTMLElement>(href);
+          if (!target) return;
+          e.preventDefault();
+          smooth.scrollTo(href === "#top" ? 0 : target, { offset: href === "#top" ? 0 : -64, duration: 1.1 });
+        };
+        document.addEventListener("click", onAnchorClick);
       });
     }
 
@@ -90,15 +104,15 @@ export function PageMotion() {
           scrollTrigger: { trigger: cell, start: "top 92%", once: true },
         });
       });
-      // Hero: headline lines slide up, frieze tiles drift at two depths
+      // Hero: headline lines slide up, frieze tiles drift at two depths (only on 4-column desktop layout)
       gsap.fromTo(".sg-hero .sg-line", { yPercent: 105, autoAlpha: 0 }, {
         yPercent: 0, autoAlpha: 1, duration: 1.3, stagger: 0.1, ease: "expo.out",
         scrollTrigger: { trigger: ".sg-hero", start: "top 80%", once: true },
       });
-      if (window.innerWidth >= 800) gsap.utils.toArray<HTMLElement>(".sg-frieze__item").forEach((item) => {
+      if (window.innerWidth >= 1101) gsap.utils.toArray<HTMLElement>(".sg-frieze__item").forEach((item) => {
         const far = item.dataset.depth === "far";
-        gsap.fromTo(item, { y: far ? 90 : 40 }, {
-          y: far ? -30 : 0, ease: "none",
+        gsap.fromTo(item, { y: far ? 64 : 24 }, {
+          y: far ? -24 : 0, ease: "none",
           scrollTrigger: { trigger: ".sg-frieze", start: "top bottom", end: "bottom top", scrub: true },
         });
       });
@@ -140,6 +154,7 @@ export function PageMotion() {
 
     return () => {
       cancelled = true;
+      if (onAnchorClick) document.removeEventListener("click", onAnchorClick);
       if (ticker) gsap.ticker.remove(ticker);
       context.revert();
       clearGsapTransforms(root);

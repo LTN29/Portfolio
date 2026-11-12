@@ -1,9 +1,10 @@
 # Portfolio — Lê Thanh Nhân
 
 Trang giới thiệu cá nhân: Next.js 16 (App Router, xuất tĩnh), React 19, TypeScript, CSS thuần.
-Chuyển động bằng GSAP ScrollTrigger + Lenis; intro 3D bằng three.js qua React Three Fiber.
-Ngôn ngữ thiết kế kế thừa landing SIMIGO (giấy & mực, một họ chữ Be Vietnam Pro, đường kẻ mảnh),
-thêm JetBrains Mono cho nhãn kỹ thuật và minh hoạ động cho từng dự án.
+Giao diện sáng kiểu biên tập: nền trắng, chữ Be Vietnam Pro + Noto Serif nghiêng, nhãn JetBrains Mono, nhấn đỏ son.
+Trang chính: `src/app/page.tsx` → các phần trong `src/site/`, CSS ở `src/app/site.css`.
+Mỗi dự án có một mô phỏng hệ thống (`src/components/sim/`): các luồng xử lý, nhật ký gọi API, số liệu đổi theo từng bước;
+kịch bản nằm ở `src/components/sim/scenarios.ts`, nội dung dự án ở `src/data/portfolio.ts`.
 
 ## Chạy
 

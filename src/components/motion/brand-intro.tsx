@@ -72,7 +72,7 @@ export function BrandIntro() {
   });
 
   return (
-    <section ref={section} className="intro-section" aria-label="Lê Thanh Nhân — Đưa AI vào vận hành thật">
+    <section ref={section} className="intro-section" aria-label="Lê Thanh Nhân — Product Engineer">
       <div className="intro-stage">
         {webgl === true && <BrandIntroScene progressRef={progressRef} active={active} still={still} tier={tier} />}
         {webgl === null && <div className="intro-webgl-fallback" />}
@@ -81,9 +81,9 @@ export function BrandIntro() {
             <span>Thanh Nhân.</span>
           </div>
         )}
-        <p className="visually-hidden">Lê Thanh Nhân — Full-stack &amp; AI Developer. Đưa AI vào vận hành thật.</p>
+        <p className="visually-hidden">Lê Thanh Nhân — Product Engineer, Full-stack &amp; AI. Từ ý tưởng đến sản phẩm chạy thật.</p>
         <p className="intro-tagline" aria-hidden="true">
-          {"Full-stack · AI Developer".split("").map((ch, i) => (
+          {"Product Engineer · Full-stack · AI".split("").map((ch, i) => (
             <span key={i} style={{ animationDelay: `${1.9 + i * 0.04}s` }}>{ch === " " ? "\u00a0" : ch}</span>
           ))}
         </p>
