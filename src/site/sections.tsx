@@ -1,6 +1,8 @@
 import { chapters, heroFacts, otherProjects, processProtocol, profile, projects, services } from "@/data/portfolio";
 import { SystemSim } from "@/components/sim/system-sim";
 import { ArchLegend, EcoMap } from "./eco-map";
+import { ProjectCarousel } from "./project-carousel";
+import { ProjectRail } from "./project-rail";
 import { Logo, STACK_LOGO } from "@/components/tech/logo";
 
 const Arrow = () => (
@@ -74,17 +76,9 @@ export function ProjectIndex() {
             Mỗi dự án có một bản mô phỏng chạy bằng dữ liệu mẫu: các khâu xử lý, lời gọi API, số liệu thay đổi theo từng bước — đúng như hệ thống thật vận hành.
           </p>
         </div>
-        <nav className="index" aria-label="Danh sách dự án" data-reveal>
-          {projects.map((p, i) => (
-            <a key={p.id} href={`#${p.id}`}>
-              <em>{String(i + 1).padStart(2, "0")}</em>
-              <b>{p.name}</b>
-              <span>{p.kind}</span>
-              <small>{p.stack.slice(0, 3).join(" · ")}</small>
-              <i aria-hidden="true">↗</i>
-            </a>
-          ))}
-        </nav>
+      </div>
+      <div data-reveal>
+        <ProjectCarousel />
       </div>
     </section>
   );
@@ -95,41 +89,54 @@ export function Projects() {
   const chapterOf = Object.fromEntries(chapters.map((c) => [c.id, c.title]));
   return (
     <>
-      {projects.map((p, i) => (
-        <section key={p.id} id={p.id} className="pj" aria-labelledby={`${p.id}-t`}>
-          <div className="wrap">
-            <div className="pj__intro">
-              <div className="pj__title" data-reveal>
-                <h3 id={`${p.id}-t`}><span className="h-idx">{String(i + 1).padStart(2, "0")}</span>{p.name}</h3>
-                <p className="pj__kind">{p.kind} · {chapterOf[p.chapter]}</p>
+      {/* thanh chương bên trái (dính khi cuộn) + nội dung từng dự án bên phải */}
+      <div className="wrap pjs">
+        <ProjectRail />
+        <div className="pjs__main">
+          {projects.map((p, i) => (
+            <section key={p.id} id={p.id} className="pj" aria-labelledby={`${p.id}-t`}>
+              <p className="pj__no">Dự án <b>{String(i + 1).padStart(2, "0")}</b> / {String(projects.length).padStart(2, "0")}</p>
+              <div className="pj__intro">
+                <div className="pj__title" data-reveal>
+                  <h3 id={`${p.id}-t`}>{p.name}</h3>
+                  <p className="pj__kind">{p.kind} · {chapterOf[p.chapter]}</p>
+                </div>
+                <p className="pj__copy" data-reveal style={{ ["--d" as string]: "0.1s" }}>{p.tagline}</p>
               </div>
-              <div className="pj__copy" data-reveal style={{ ["--d" as string]: "0.1s" }}>
-                <p>{p.tagline}</p>
-                <ul className="pj__roles" aria-label="Vai trò của tôi">
-                  {p.role.map((r) => <li key={r}>{r}</li>)}
-                </ul>
+              <div className="pj__body" data-reveal style={{ ["--d" as string]: "0.15s" }}>
+                <SystemSim system={p.demo} />
+                <div className="pj__spec">
+                  <div className="pj__spec-main">
+                    <h4>Điểm nổi bật</h4>
+                    <ol className="pj__feats">
+                      {p.highlights.map((h) => <li key={h}>{h}</li>)}
+                    </ol>
+                  </div>
+                  <div className="pj__spec-side">
+                    <div>
+                      <h4>Vai trò</h4>
+                      <ul className="pj__roles">
+                        {p.role.map((r) => <li key={r}>{r}</li>)}
+                      </ul>
+                    </div>
+                    <div>
+                      <h4>Công nghệ</h4>
+                      <div className="pj__stack">
+                        {p.stack.map((s) => (
+                          <span key={s} className="chip">
+                            {STACK_LOGO[s] && <Logo name={STACK_LOGO[s]} size={15} />}
+                            {s}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div data-reveal style={{ ["--d" as string]: "0.15s" }}>
-              <SystemSim system={p.demo} />
-            </div>
-            <ul className="pj__feats" data-reveal>
-              {p.highlights.map((h, k) => (
-                <li key={h}><em>{String(k + 1).padStart(2, "0")}</em>{h}</li>
-              ))}
-            </ul>
-            <div className="pj__stack" aria-label="Công nghệ">
-              <span className="pj__stack-k">Công nghệ</span>
-              {p.stack.map((s) => (
-                <span key={s} className="chip">
-                  {STACK_LOGO[s] && <Logo name={STACK_LOGO[s]} size={15} />}
-                  {s}
-                </span>
-              ))}
-            </div>
-          </div>
-        </section>
-      ))}
+            </section>
+          ))}
+        </div>
+      </div>
       <section className="sec" aria-labelledby="more-t">
         <div className="wrap">
           <div className="sec__head">
