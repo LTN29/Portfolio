@@ -14,7 +14,7 @@ export function llmsText(full = false) {
     "",
   );
   out.push("## Trang chính", "");
-  out.push(`- [Trang chủ — hồ sơ năng lực](${abs("/")}): sơ đồ hệ thống, công nghệ, 7 dự án kèm mô phỏng, năng lực, cách làm`);
+  out.push(`- [Trang chủ — hồ sơ năng lực](${abs("/")}): sơ đồ hệ thống, công nghệ, ${projects.length} dự án kèm mô phỏng, năng lực, cách làm`);
   out.push(`- [Tất cả bài viết](${abs("/bai-viet/")})`);
   out.push(`- [RSS bài viết](${abs("/bai-viet/rss.xml")})`, "");
   out.push("## Dự án", "");

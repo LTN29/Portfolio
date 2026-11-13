@@ -83,5 +83,8 @@ export const NODE_ICON: Record<string, string> = {
   "Máy chủ cập nhật": "@nodejs", "Danh sách phiên bản": "log", "Máy nhân viên": "desktop", "Tải & kiểm tra": "shield", "Sẵn sàng": "check",
   "Bình luận": "chat", "Phân loại": "tag", "Hàng ưu tiên": "queue", "Soạn câu trả lời": "ai", "Giọng đọc": "mic", OBS: "@obs",
   "Chiến dịch": "flag", "Bộ phân việc": "queue", "Máy chạy": "desktop", "Giám sát": "eye", "Kết quả": "chart",
+  "Khách hỏi": "chat", "Che dữ liệu": "lock", "Tìm tri thức": "search", "AI tổng hợp": "ai", "Kiểm nguồn": "shield",
+  "Bộ nhớ đệm": "clock", "Cầu dao": "bolt", "Tri thức đã duyệt": "log", "Câu chưa trả lời": "alert", "Quản trị viên": "user",
+  "Duyệt tri thức": "check", "Kho tri thức": "db",
   "Quản trị cửa hàng": "gear", Theme: "palette", "Trang sản phẩm": "globe", SEO: "search", "Mini App": "phone",
 };

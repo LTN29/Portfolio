@@ -13,6 +13,7 @@ import { QueueDemo } from "@/components/demos/queue-demo";
 const DEMOS: Record<DemoKind, ComponentType> = {
   office: OfficeDemo,
   gateway: GatewayDemo,
+  chatbot: GatewayDemo,
   warranty: WarrantyDemo,
   store: StoreDemo,
   purchase: PurchaseDemo,

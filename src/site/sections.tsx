@@ -7,6 +7,8 @@ import { ProjectStage } from "./project-stage";
 import { Fragment } from "react";
 import { Logo, STACK_LOGO } from "@/components/tech/logo";
 
+const COUNT_VI: Record<number, string> = { 5: "Năm", 6: "Sáu", 7: "Bảy", 8: "Tám", 9: "Chín", 10: "Mười" };
+
 const Arrow = () => (
   <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 13L13 3M13 3H5.5M13 3v7.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
 );
@@ -71,7 +73,7 @@ export function ProjectIndex() {
           <div>
             <h2 id="projects-title" className="h-sec" data-reveal>
               <span className="h-idx">02</span>
-              Bảy hệ thống, <span className="ed">mỗi cái một mô phỏng</span> để bạn bấm thử.
+              {COUNT_VI[projects.length] ?? projects.length} hệ thống, <span className="ed">mỗi cái một mô phỏng</span> để bạn bấm thử.
             </h2>
           </div>
           <p className="lead" data-reveal>

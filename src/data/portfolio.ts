@@ -2,7 +2,7 @@
  * Không ghi tên công ty / thương hiệu nơi làm việc: mô tả theo loại hệ thống và vai trò của mình. */
 
 export type VisualKind = "live" | "office" | "gateway" | "orchestrator" | "inventory" | "warranty" | "mobile";
-export type DemoKind = "office" | "gateway" | "warranty" | "store" | "purchase" | "inventory" | "live" | "queue";
+export type DemoKind = "office" | "gateway" | "chatbot" | "warranty" | "store" | "purchase" | "inventory" | "live" | "queue";
 
 export const profile = {
   name: "Lê Thanh Nhân",
@@ -98,6 +98,25 @@ export const projects: Project[] = [
     ],
     stack: ["Node.js", "Docker", "SSE", "Cloudflare"],
     demo: "gateway",
+    visual: "gateway",
+    tone: "mist",
+  },
+  {
+    id: "chatbot-ai",
+    chapter: "ai",
+    name: "Chatbot AI",
+    kind: "Trợ lý chăm sóc khách hàng trên web & app",
+    tagline: "Khách hỏi về sản phẩm, chính sách, bảo hành lúc nào cũng có người đáp: AI chỉ trả lời từ kho tri thức đã duyệt và dẫn đúng nguồn; AI hết hạn mức hay mất kết nối thì vẫn trả lời từ dữ liệu, khách không bao giờ thấy lỗi.",
+    pitch: "Làm sao để chatbot AI trả lời khách đúng sự thật, không bịa — và không “sập” khi AI gặp sự cố?",
+    role: ["Ý tưởng", "Thiết kế hội thoại", "Backend & AI", "Trang quản trị"],
+    highlights: [
+      "Chỉ trả lời từ tri thức đã duyệt: lấy 5 nguồn sát nhất (FAQ, chính sách, cách xử lý lỗi, sản phẩm); câu AI dẫn sai nguồn bị loại",
+      "Dự phòng nhiều tầng: AI hết hạn mức hoặc mất kết nối thì tạm ngắt và trả lời thẳng từ dữ liệu; nhớ câu trả lời hay dùng để gọi AI ít hơn",
+      "Che số điện thoại, email, mã phiếu trước khi gửi AI; từ chối câu dò cấu hình, kéo câu lạc đề về sản phẩm; theo mạch khi khách đổi chủ đề",
+      "Trang quản trị: biến câu chưa trả lời thành tri thức mới, thống kê, chống spam, xếp thứ tự model AI và tự chuyển khi lỗi",
+    ],
+    stack: ["Spring Boot", "React", "Database", "RAG", "Node.js"],
+    demo: "chatbot",
     visual: "gateway",
     tone: "mist",
   },

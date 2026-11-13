@@ -191,6 +191,14 @@ export function MobileTour() {
     document.documentElement.classList.toggle("tour-lock", lock);
   }, [phase]);
 
+  // máy tính: hộp mời mở thì bánh xe chuột không cuộn trang phía sau
+  useEffect(() => {
+    if (phase !== "offer" && phase !== "done") return;
+    const stop = (e: Event) => e.preventDefault();
+    window.addEventListener("wheel", stop, { passive: false });
+    return () => window.removeEventListener("wheel", stop);
+  }, [phase]);
+
   const dismiss = () => { try { sessionStorage.setItem(SEEN_KEY, "1"); } catch {} setP("idle"); };
 
   return (
@@ -203,7 +211,7 @@ export function MobileTour() {
               <>
                 <div className="tour__head">
                   <span className="tour__ic" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M5 3.5v9l7.5-4.5z" fill="currentColor" /></svg></span>
-                  <p className="tour__kicker">Xem nhanh · khoảng 3 phút rưỡi</p>
+                  <p className="tour__kicker">Xem nhanh · gần 4 phút</p>
                 </div>
                 <h2 id="tour-t" className="tour__title">Để trang tự dẫn bạn xem?</h2>
                 <p className="tour__body">Trang tự cuộn qua từng phần và dừng lại ở mỗi mô phỏng. {wide ? "Cuộn chuột hoặc bấm phím cách để dừng bất cứ lúc nào." : "Chạm màn hình bất cứ lúc nào để dừng."}</p>

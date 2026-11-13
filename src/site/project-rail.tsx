@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import { chapters, projects } from "@/data/portfolio";
 
-/* Thanh chương bên trái phần dự án: số dự án đang xem thật to, danh sách 7 dự án,
- * vạch dọc lấp đầy theo tiến độ cuộn qua cả 7 dự án. Dính theo khi cuộn (sticky). */
+/* Thanh chương bên trái phần dự án: số dự án đang xem thật to, danh sách các dự án,
+ * vạch dọc lấp đầy theo tiến độ cuộn qua toàn bộ dự án. Dính theo khi cuộn (sticky). */
 
 const chapterOf = Object.fromEntries(chapters.map((c) => [c.id, c.title]));
 const pad = (n: number) => String(n).padStart(2, "0");

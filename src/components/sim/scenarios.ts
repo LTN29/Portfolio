@@ -435,6 +435,99 @@ export const SYSTEMS: Record<string, SimSystem> = {
   },
 
   /* ───────────── TỰ ĐỘNG HOÁ ───────────── */
+  /* ───────────── CHATBOT AI ───────────── */
+  chatbot: {
+    title: "Chatbot AI",
+    modules: [
+      {
+        id: "rag",
+        label: "Trả lời có dẫn nguồn",
+        desc: "Tìm tri thức → AI tổng hợp → kiểm nguồn",
+        nodes: ["Khách hỏi", "Che dữ liệu", "Tìm tri thức", "AI tổng hợp", "Kiểm nguồn", "Trả lời"],
+        stats: [
+          { key: "asked", label: "Câu hỏi hôm nay" },
+          { key: "cited", label: "Có dẫn nguồn" },
+          { key: "latency", label: "Thời gian trả lời" },
+        ],
+        initial: { asked: 312, cited: "97%", latency: "—" },
+        steps: [
+          {
+            node: 0, title: "Khách hỏi trên website",
+            detail: "“Máy hút V5 của tôi báo đèn đỏ, còn bảo hành không? SĐT 0909 123 456”.",
+            logs: [{ kind: "in", text: "POST /api/public/chatbot/message", meta: "phiên #a91f", body: '{ "message": "Máy hút V5 báo đèn đỏ, còn bảo hành không? SĐT 0909…" }' }],
+          },
+          {
+            node: 1, title: "Che dữ liệu cá nhân",
+            detail: "Số điện thoại, email, mã phiếu được che trước khi rời máy chủ. AI không bao giờ thấy dữ liệu riêng của khách.",
+            logs: [{ kind: "info", text: "mask phone → [SĐT]", meta: "1 mục" }, { kind: "ok", text: "không gửi phiếu / ghi chú kỹ thuật", meta: "chính sách" }],
+          },
+          {
+            node: 2, title: "Lấy 5 tri thức sát nhất",
+            detail: "Chỉ tìm trong kho đã duyệt: cách xử lý lỗi, chính sách bảo hành, thông tin sản phẩm. Mỗi mục giới hạn độ dài.",
+            logs: [{ kind: "info", text: "search knowledge", meta: "5 / 1.240 mục · 18ms", body: '[ "ERR-V5-DEN-DO", "POL-BH-12T", "SP-V5", "FAQ-KICH-HOAT", "FAQ-TAO-PHIEU" ]' }],
+          },
+          {
+            node: 3, title: "AI viết câu trả lời từ đúng 5 nguồn đó",
+            detail: "Gọi qua cổng AI của công ty: hạn mức riêng cho chatbot, không đọc bộ nhớ nội bộ, tự chuyển model khi lỗi.",
+            logs: [{ kind: "out", text: "POST /v1/responses", meta: "200 · 1,9s", body: '{ "answer": "Đèn đỏ là pin quá nhiệt…", "knowledgeCodes": ["ERR-V5-DEN-DO", "POL-BH-12T"] }' }],
+          },
+          {
+            node: 4, title: "Kiểm tra nguồn AI dẫn",
+            detail: "Mã tri thức AI trả về phải nằm trong 5 nguồn đã đưa. Dẫn sai hoặc không dẫn là câu trả lời bị loại.",
+            logs: [{ kind: "ok", text: "knowledgeCodes ⊂ evidence", meta: "2/2 hợp lệ" }],
+            set: { cited: "97%" },
+          },
+          {
+            node: 5, title: "Trả lời kèm thẻ sản phẩm và nút tạo phiếu",
+            detail: "Cách xử lý đèn đỏ, điều kiện bảo hành 12 tháng và nút “Tạo yêu cầu bảo hành” ngay trong khung chat.",
+            logs: [{ kind: "out", text: "200 → khách", meta: "source AI_RAG · 2,1s" }],
+            set: { asked: 313, latency: "2,1s" }, focus: "latency",
+          },
+        ],
+      },
+      {
+        id: "fallback",
+        label: "Khi AI gặp sự cố",
+        desc: "Tạm ngắt AI, trả lời từ dữ liệu",
+        nodes: ["Khách hỏi", "Bộ nhớ đệm", "AI tổng hợp", "Cầu dao", "Tri thức đã duyệt", "Trả lời"],
+        stats: [
+          { key: "ai", label: "Lượt gọi AI" },
+          { key: "db", label: "Trả lời từ dữ liệu" },
+          { key: "err", label: "Lỗi khách thấy" },
+        ],
+        initial: { ai: 0, db: 0, err: 0 },
+        steps: [
+          { node: 0, title: "Khách hỏi chính sách đổi trả", detail: "“Mua online thì được đổi trong bao nhiêu ngày?”", logs: [{ kind: "in", text: "POST /api/public/chatbot/message", meta: "phiên #c204" }] },
+          { node: 1, title: "Chưa có trong bộ nhớ câu trả lời", detail: "Câu đã được kiểm chứng trước đó thì trả ngay, không tốn lượt AI. Câu này mới.", logs: [{ kind: "info", text: "answer cache", meta: "miss" }] },
+          { node: 2, title: "Cổng AI báo hết hạn mức", detail: "Nhà cung cấp trả 429 — hạn mức ngày của chatbot đã dùng hết.", logs: [{ kind: "err", text: "POST /v1/responses", meta: "429 insufficient_quota" }], set: { ai: 1 } },
+          { node: 3, title: "Mở cầu dao 5 phút", detail: "Hết hạn mức thì ngắt 5 phút, lỗi mạng thì 30 giây. Trong lúc đó không gọi AI nữa.", logs: [{ kind: "warn", text: "circuit open", meta: "5 phút" }] },
+          { node: 4, title: "Trả lời thẳng từ tri thức đã duyệt", detail: "Tìm theo ngưỡng chặt trước, rồi ngưỡng rộng; cuối cùng mới là câu trả lời an toàn.", logs: [{ kind: "ok", text: "match POL-DOI-TRA", meta: "ngưỡng chặt · 0,86" }], set: { db: 1 }, focus: "db" },
+          { node: 5, title: "Khách vẫn nhận câu trả lời đúng", detail: "Không có lỗi 500 chỉ vì AI hết token hay cổng AI dừng.", logs: [{ kind: "out", text: "200 → khách", meta: "source DB · 120ms" }], focus: "err" },
+          { node: 3, title: "Câu kế tiếp không chờ AI", detail: "Cầu dao còn mở nên đi thẳng xuống dữ liệu, trả lời ngay.", logs: [{ kind: "info", text: "bỏ qua AI", meta: "cầu dao còn 4:12" }, { kind: "ok", text: "200 → khách", meta: "source DB · 95ms" }], set: { db: 2 }, focus: "db" },
+        ],
+      },
+      {
+        id: "learn",
+        label: "Học từ câu chưa trả lời",
+        desc: "Quản trị duyệt → thành tri thức mới",
+        nodes: ["Câu chưa trả lời", "Quản trị viên", "Duyệt tri thức", "Kho tri thức", "Trả lời"],
+        stats: [
+          { key: "open", label: "Câu chờ xử lý" },
+          { key: "kb", label: "Mục tri thức" },
+          { key: "hit", label: "Trả lời được" },
+        ],
+        initial: { open: 7, kb: 1240, hit: "91%" },
+        steps: [
+          { node: 0, title: "Gom câu bot chưa trả lời được", detail: "Không đủ nguồn thì bot hỏi lại khách và ghi câu đó vào danh sách chờ.", logs: [{ kind: "in", text: "unanswered +1", meta: "“lõi lọc bao lâu thay một lần?”" }] },
+          { node: 1, title: "Quản trị viên xem nhật ký và thống kê", detail: "Câu hỏi được gom theo ý, thấy ngay chủ đề khách hỏi nhiều mà chưa có câu trả lời.", logs: [{ kind: "info", text: "GET /admin/chatbot/unanswered", meta: "7 câu · 3 cùng ý" }] },
+          { node: 2, title: "Viết câu trả lời chuẩn, gắn sản phẩm", detail: "Một lần duyệt giải quyết cả 3 câu cùng ý.", logs: [{ kind: "ok", text: "resolve → knowledge", meta: "FAQ-LOC-06" }], set: { open: 4 }, focus: "open" },
+          { node: 3, title: "Lưu vào kho tri thức", detail: "Có hiệu lực ngay cho website và app, không cần triển khai lại.", logs: [{ kind: "ok", text: "knowledge +1", meta: "đã duyệt" }], set: { kb: 1241 }, focus: "kb" },
+          { node: 4, title: "Lần sau khách hỏi, bot trả lời có nguồn", detail: "Câu trả lời dẫn đúng mục tri thức vừa thêm.", logs: [{ kind: "out", text: "200 → khách", meta: "source AI_RAG · FAQ-LOC-06" }], set: { hit: "92%" }, focus: "hit" },
+        ],
+      },
+    ],
+  },
+
   queue: {
     title: "Tự động hoá chiến dịch",
     modules: [
