@@ -44,7 +44,7 @@ export function FlowDiagram({ nodes, active, reached, runKey, running = true, st
   const colW = narrow ? 118 : 150;
   const rowH = narrow ? 146 : 140;
   const W = cols * colW;
-  const H = rows * rowH - (narrow ? 6 : 14);
+  const H = narrow ? (rows - 1) * rowH + 112 : rows * rowH - 14; // màn hẹp: bỏ khoảng trống thừa dưới hàng cuối
   const half = TILE / 2;
 
   const pos = nodes.map((_, i) => {

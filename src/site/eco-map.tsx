@@ -69,6 +69,73 @@ export function ArchLegend() {
   );
 }
 
+/* ── Bản dọc cho điện thoại: cùng nội dung, xếp từ trên xuống, vừa khít bề ngang, không phải vuốt ── */
+type V = { id: string; x: number; y: number; label: string; logo?: string; icon?: string };
+const VS = 20; // nửa cạnh ô (bản dọc)
+const VNODES: V[] = [
+  { id: "zalo", x: 48, y: 62, logo: "zalo", label: "Zalo App" },
+  { id: "app", x: 135, y: 62, logo: "react", label: "iOS · Android" },
+  { id: "web", x: 225, y: 62, icon: "globe", label: "Website" },
+  { id: "desk", x: 310, y: 62, logo: "electron", label: "Văn Phòng AI" },
+  { id: "ci", x: 56, y: 178, logo: "githubactions", label: "GitHub Actions" },
+  { id: "cf", x: 180, y: 178, logo: "cloudflare", label: "Cloudflare" },
+  { id: "api", x: 115, y: 302, logo: "springboot", label: "Spring Boot API" },
+  { id: "gw", x: 245, y: 302, logo: "nodejs", label: "Node.js Gateway" },
+  { id: "db", x: 45, y: 440, icon: "db", label: "Database" },
+  { id: "san", x: 135, y: 440, logo: "shopee", label: "Sàn TMĐT" },
+  { id: "zns", x: 225, y: 440, icon: "bell", label: "Zalo ZNS" },
+  { id: "ai", x: 315, y: 440, icon: "ai", label: "Model AI" },
+];
+const vat = Object.fromEntries(VNODES.map((n) => [n.id, n])) as Record<string, V>;
+const below = (n: V) => n.y + VS + 24; // điểm ra: dưới nhãn
+const above = (n: V) => n.y - VS - 7; // điểm vào: trên ô
+
+/* đường dọc → ngang theo trục chung (bus) → dọc, bo góc */
+function vpath(ax: number, ay: number, bx: number, by: number, bus: number) {
+  if (Math.abs(ax - bx) < 1) return `M${ax} ${ay} V${by}`;
+  const s1 = Math.sign(bus - ay), s2 = Math.sign(by - bus), d = Math.sign(bx - ax);
+  const r = Math.min(9, Math.abs(bx - ax) / 2, Math.abs(bus - ay), Math.abs(by - bus));
+  return `M${ax} ${ay} V${bus - s1 * r} Q${ax} ${bus} ${ax + d * r} ${bus} H${bx - d * r} Q${bx} ${bus} ${bx} ${bus + s2 * r} V${by}`;
+}
+
+const VEDGES: { d: string; ex: number; ey: number; rot: number; wave: number; ci?: boolean }[] = [
+  ...["zalo", "app", "web", "desk"].map((k) => ({ d: vpath(vat[k].x, below(vat[k]), 180, above(vat.cf), 128), ex: 180, ey: above(vat.cf), rot: 90, wave: 0 })),
+  ...["api", "gw"].map((k) => ({ d: vpath(180, below(vat.cf), vat[k].x, above(vat[k]), 252), ex: vat[k].x, ey: above(vat[k]), rot: 90, wave: 1 })),
+  { d: `M56 ${below(vat.ci)} V${vat.api.y - 9} Q56 ${vat.api.y} 65 ${vat.api.y} H${vat.api.x - VS - 7}`, ex: vat.api.x - VS - 7, ey: vat.api.y, rot: 0, wave: 1, ci: true },
+  ...["db", "zns"].map((k) => ({ d: vpath(115, below(vat.api), vat[k].x, above(vat[k]), 384), ex: vat[k].x, ey: above(vat[k]), rot: 90, wave: 2 })),
+  { d: vpath(135, above(vat.san), 115, below(vat.api), 392), ex: 115, ey: below(vat.api), rot: -90, wave: 2 },
+  { d: vpath(245, below(vat.gw), 315, above(vat.ai), 384), ex: 315, ey: above(vat.ai), rot: 90, wave: 2 },
+];
+
+function EcoMapV() {
+  return (
+    <svg className="arch__v" viewBox="0 0 360 490" role="img" aria-label="Sơ đồ kiến trúc: các kênh người dùng đi qua Cloudflare tới Spring Boot API và Node.js Gateway chạy trong Docker; API nối Database, sàn Shopee/TikTok, Zalo ZNS; Gateway nối các model AI; GitHub Actions build và triển khai.">
+      <g className="arch__colh"><text x="180" y="14">KÊNH NGƯỜI DÙNG</text></g>
+      <g className="arch__docker">
+        <rect x="22" y="236" width="316" height="128" rx="18" />
+        <g transform="translate(32 244) scale(0.62)"><LogoPath name="docker" /></g>
+        <text x="52" y="256">Docker</text>
+      </g>
+      {VEDGES.map((e, i) => (
+        <g key={i} className={`arch__link${e.ci ? " arch__link--ci" : ""}`}>
+          <path d={e.d} className="arch__edge" />
+          <path d="M-5 -3.6 L1.2 0 L-5 3.6 Z" transform={`translate(${e.ex} ${e.ey}) rotate(${e.rot})`} className="arch__arrow" />
+          <Comet d={e.d} dur={CYCLE} delay={e.wave * 1.1} />
+        </g>
+      ))}
+      {VNODES.map((n) => (
+        <g key={n.id} transform={`translate(${n.x} ${n.y})`} className="flow__node is-done arch__node arch__node--v">
+          <rect x={-VS} y={-VS} width={VS * 2} height={VS * 2} rx="12" className="flow__tile" />
+          <g transform="translate(-10.5 -10.5) scale(0.875)" className="flow__icon">
+            {n.logo ? <LogoPath name={n.logo} /> : <IconG name={n.icon ?? "cpu"} />}
+          </g>
+          <text y={VS + 15} textAnchor="middle" className="flow__label">{n.label}</text>
+        </g>
+      ))}
+    </svg>
+  );
+}
+
 export function EcoMap({ legend = true }: { legend?: boolean }) {
   const ref = useRef<HTMLElement>(null);
   useEffect(() => {
@@ -122,7 +189,7 @@ export function EcoMap({ legend = true }: { legend?: boolean }) {
           ))}
         </svg>
       </div>
-      <p className="arch__hint">Vuốt ngang để xem cả sơ đồ →</p>
+      <EcoMapV />
       {legend && <ArchLegend />}
     </figure>
   );

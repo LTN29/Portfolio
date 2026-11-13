@@ -3,6 +3,8 @@ import { SystemSim } from "@/components/sim/system-sim";
 import { ArchLegend, EcoMap } from "./eco-map";
 import { ProjectCarousel } from "./project-carousel";
 import { ProjectRail } from "./project-rail";
+import { ProjectStage } from "./project-stage";
+import { Fragment } from "react";
 import { Logo, STACK_LOGO } from "@/components/tech/logo";
 
 const Arrow = () => (
@@ -94,7 +96,9 @@ export function Projects() {
         <ProjectRail />
         <div className="pjs__main">
           {projects.map((p, i) => (
-            <section key={p.id} id={p.id} className="pj" aria-labelledby={`${p.id}-t`}>
+            <Fragment key={p.id}>
+            <ProjectStage pitch={p.pitch} />
+            <section id={p.id} className="pj" aria-labelledby={`${p.id}-t`}>
               <p className="pj__no">Dự án <b>{String(i + 1).padStart(2, "0")}</b> / {String(projects.length).padStart(2, "0")}</p>
               <div className="pj__intro">
                 <div className="pj__title" data-reveal>
@@ -134,6 +138,7 @@ export function Projects() {
                 </div>
               </div>
             </section>
+            </Fragment>
           ))}
         </div>
       </div>
