@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 /* Màn sân khấu trước mỗi dự án — chạy theo thanh cuộn, dính màn hình (sticky) trong lúc diễn:
  *  1. Hai cánh màn màu mực trượt vào từ hai mép, khép lại thành một dải giữa màn hình; đường nối giữa hai cánh có vệt sáng xanh.
- *  2. Câu hỏi hiện trên dải; rồi tan đi, thay bằng câu trả lời "Tôi có thứ bạn cần."
+ *  2. Câu hỏi hiện trên dải; rồi tan đi, thay bằng câu trả lời "Đây là cách tôi đã làm."
  *  3. Dải nở cao kín màn hình; từ đường nối, một quầng sáng xanh dịu toả ra.
  *  4. Hai cánh màn tách ra theo đường nối — lộ phần dự án thật nằm ngay bên dưới (sân khấu chồng lên 1 màn hình đầu của dự án).
  * Mọi chuyển động là transform / opacity / clip-path / filter, cập nhật bằng rAF có độ trễ mượt (lerp). */
@@ -13,7 +13,7 @@ const seg = (p: number, a: number, b: number) => Math.min(1, Math.max(0, (p - a)
 const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 const START = 0.35; // bắt đầu diễn khi đỉnh sân khấu còn cách đỉnh màn hình 35% chiều cao
 
-export function ProjectStage({ pitch, answer = "Tôi có thứ bạn cần." }: { pitch: string; answer?: string }) {
+export function ProjectStage({ pitch, answer = "Đây là cách tôi đã làm." }: { pitch: string; answer?: string }) {
   const root = useRef<HTMLDivElement>(null);
   const pin = useRef<HTMLDivElement>(null);
 

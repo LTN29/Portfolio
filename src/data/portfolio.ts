@@ -9,7 +9,7 @@ export const profile = {
   role: "Product Engineer · Full-stack & AI",
   status: "Hồ sơ năng lực 2026",
   location: "TP.HCM (GMT+7)",
-  // Điền thông tin liên hệ muốn công khai, để trống thì tự ẩn.
+  // không còn hiện trên trang (đã bỏ phần liên hệ); giữ lại cho code giao diện cũ trong src/components còn biên dịch được
   email: "",
   phone: "",
   zalo: "",
@@ -21,7 +21,7 @@ export const sectionLinks = [
   { href: "#about", label: "Về tôi" },
   { href: "#services", label: "Năng lực" },
   { href: "#process", label: "Cách làm" },
-  { href: "#contact", label: "Liên hệ" },
+  { href: "#notes", label: "Bài viết" },
 ];
 
 export const heroFacts = [
@@ -46,7 +46,7 @@ export type Project = {
   name: string;
   kind: string;
   tagline: string;
-  /** câu mở màn sân khấu: nỗi đau của khách, dạng câu hỏi */
+  /** câu mở màn sân khấu: bài toán dự án này giải, dạng câu hỏi */
   pitch: string;
   role: string[];
   highlights: string[];
@@ -69,7 +69,7 @@ export const projects: Project[] = [
     name: "Văn Phòng AI",
     kind: "Ứng dụng desktop đa agent",
     tagline: "Một văn phòng 3D nơi mỗi nhân viên AI ngồi một bàn: giao việc như giao cho người thật, cả nhóm tự chia việc, kiểm tra chéo và nộp file kết quả.",
-    pitch: "Bạn cần một đội AI biết nhận việc, chia việc và nộp kết quả như người thật?",
+    pitch: "Làm sao để AI nhận việc, chia việc và nộp kết quả như một đội người thật?",
     role: ["Ý tưởng", "Thiết kế UI/UX & 3D", "Full-stack", "Phát hành"],
     highlights: [
       "Ba không gian trong một app: Văn phòng (đội AI 3D), Chat nhiều model, Sảnh 3D online cho cả công ty",
@@ -88,7 +88,7 @@ export const projects: Project[] = [
     name: "AI Gateway",
     kind: "Cổng AI dùng chung cho tổ chức",
     tagline: "Một cổng duy nhất cho mọi ứng dụng gọi AI: xác thực, hạn mức theo người, chọn model phù hợp và tự chuyển model khác khi nhà cung cấp gặp sự cố.",
-    pitch: "Bạn cần cả công ty dùng AI mà vẫn kiểm soát được quyền, hạn mức và chi phí?",
+    pitch: "Cả công ty cùng dùng AI — làm sao kiểm soát được quyền, hạn mức và chi phí?",
     role: ["Kiến trúc", "Backend", "Vận hành máy chủ"],
     highlights: [
       "Chuẩn API chung cho app desktop, trợ lý chat và công cụ nội bộ",
@@ -107,7 +107,7 @@ export const projects: Project[] = [
     name: "Tự động hoá chiến dịch",
     kind: "Hàng đợi & máy chạy song song",
     tagline: "Chiến dịch bình luận chạy trên nhiều máy cùng lúc nhưng không bao giờ làm trùng việc; máy nào treo thì hệ thống tự phát hiện và chạy lại.",
-    pitch: "Bạn cần chạy chiến dịch trên nhiều máy cùng lúc mà không bao giờ trùng việc?",
+    pitch: "Chiến dịch chạy trên nhiều máy cùng lúc — làm sao để không bao giờ trùng việc?",
     role: ["Thiết kế hệ thống", "Automation"],
     highlights: [
       "Bộ phân việc tách khỏi máy chạy: mỗi bài chỉ được xử lý đúng một lần",
@@ -125,7 +125,7 @@ export const projects: Project[] = [
     name: "Hệ sinh thái bảo hành",
     kind: "Website · Zalo Mini App · App iOS & Android",
     tagline: "Khách kích hoạt, tra cứu và gửi yêu cầu bảo hành ở kênh nào cũng được; kỹ thuật viên cập nhật một lần, khách thấy ngay trên mọi kênh.",
-    pitch: "Bạn cần khách tự kích hoạt và tra cứu bảo hành ngay trên điện thoại?",
+    pitch: "Làm sao để khách tự kích hoạt và tra cứu bảo hành ngay trên điện thoại?",
     role: ["Ý tưởng", "Thiết kế UI/UX", "Web & Mini App", "App mobile"],
     highlights: [
       "Trang quản trị: phiếu bảo hành qua 13 trạng thái, kỹ thuật viên, kho linh kiện, báo cáo xuất Excel",
@@ -144,7 +144,7 @@ export const projects: Project[] = [
     name: "Website bán hàng",
     kind: "Theme tuỳ biến trên nền tảng thương mại điện tử",
     tagline: "Giao diện cửa hàng tự thiết kế trên nền tảng thương mại điện tử (Sapo, Haravan, Shopify…): trang chủ, danh mục, trang sản phẩm và khuyến mãi, dùng chung dữ liệu sản phẩm với Mini App.",
-    pitch: "Bạn cần một website bán hàng mang dấu ấn riêng, tải nhanh và chuẩn SEO?",
+    pitch: "Một website bán hàng mang dấu ấn riêng mà vẫn tải nhanh, chuẩn SEO?",
     role: ["Thiết kế giao diện", "Lập trình theme"],
     highlights: [
       "Theme tuỳ biến theo nhận diện riêng, đổi màu và khối nội dung ngay trong trang quản trị",
@@ -162,7 +162,7 @@ export const projects: Project[] = [
     name: "Quản lý mua hàng & nhập khẩu",
     kind: "Ứng dụng web nội bộ",
     tagline: "Theo dõi mỗi đơn mua từ lúc dự tính đến khi hàng về kho qua 10 mốc, kèm lịch thanh toán, cảnh báo đến hạn và chứng từ của từng đơn.",
-    pitch: "Bạn cần gom đơn mua, lịch thanh toán và hàng nhập khẩu về một nơi?",
+    pitch: "Đơn mua, lịch thanh toán, hàng nhập khẩu — làm sao gom về một nơi?",
     role: ["Ý tưởng", "Thiết kế UI/UX", "Full-stack"],
     highlights: [
       "AI đọc báo giá / hợp đồng và điền sẵn đơn mua",
@@ -181,7 +181,7 @@ export const projects: Project[] = [
     name: "Tồn kho & kết nối đa sàn",
     kind: "Ứng dụng web nội bộ",
     tagline: "Một nơi xem tồn kho nhiều kho, đơn hàng, đổi trả và quảng cáo từ Shopee, TikTok Shop; bán ở đâu thì số tồn mọi kênh cập nhật theo.",
-    pitch: "Bạn cần quản lý hàng hoá nhiều kho và đơn từ Shopee, TikTok ở cùng một chỗ?",
+    pitch: "Hàng ở nhiều kho, đơn đổ về từ Shopee, TikTok — làm sao xem ở cùng một chỗ?",
     role: ["Thiết kế UI/UX", "Full-stack", "Tích hợp API sàn"],
     highlights: [
       "Đồng bộ đơn hàng, đổi trả, đánh giá và quảng cáo qua API của sàn",
@@ -210,10 +210,8 @@ export const services = [
   ["Hạ tầng & phát hành", "Docker, máy chủ, CI build nhiều hệ điều hành, cập nhật tự động.", "Docker · CI/CD · Cloudflare"],
 ] as const;
 
-/* Form liên hệ: có web3formsKey → gửi thẳng về email đã đăng ký key; để trống → mở ứng dụng email tới profile.email. */
-export const contactForm = {
-  web3formsKey: "1fe70fa4-b531-44b8-a480-eae4fecdbc43", // key công khai của Web3Forms
-};
+/* Không còn dùng trên trang (đã bỏ form liên hệ); giữ để code cũ trong src/components biên dịch được. */
+export const contactForm = { web3formsKey: "" };
 
 export const processProtocol = [
   {
@@ -245,3 +243,5 @@ export const processProtocol = [
     deliverable: "Hệ thống chạy ổn định, có tài liệu",
   },
 ] as const;
+
+/* Bài viết: xem content/bai-viet/*.md (đọc bởi src/lib/posts.ts). */

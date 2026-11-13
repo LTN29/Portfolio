@@ -152,7 +152,7 @@ export function Projects() {
           <div className="more" data-reveal>
             {otherProjects.map((o) => (
               <article key={o.name}>
-                <h4>{o.name}</h4>
+                <h3>{o.name}</h3>
                 <p>{o.note}</p>
                 <small>{o.stack}</small>
               </article>

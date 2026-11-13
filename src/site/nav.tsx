@@ -46,16 +46,16 @@ export function Nav() {
     <>
       <header className={`nav${scrolled ? " is-scrolled" : ""}${hidden && !open ? " is-hidden" : ""}`}>
         <div className="wrap nav__in">
-          <a href="#top" className="nav__logo" aria-label={`${profile.name} — đầu trang`}>
+          <a href="#top" className="nav__logo">
             <b>LTN<span className="dot">.</span></b>
             <span>{profile.name}</span>
           </a>
           <nav className="nav__links" aria-label="Mục chính">
-            {sectionLinks.map((l) => (
+            {sectionLinks.filter((l) => l.href !== "#notes").map((l) => (
               <a key={l.href} href={l.href} className={active === l.href ? "is-on" : undefined}>{l.label}</a>
             ))}
           </nav>
-          <a href="#contact" className="nav__cta">Liên hệ</a>
+          <a href="#notes" className="nav__cta">Bài viết</a>
           <button type="button" className="nav__menu" aria-expanded={open} aria-controls="nav-sheet" onClick={() => setOpen((o) => !o)}>
             {open ? "Đóng" : "Menu"}
           </button>

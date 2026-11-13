@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "check:posts": "node scripts/check-posts.mjs"
   },
   "dependencies": {
     "next": "16.2.6",

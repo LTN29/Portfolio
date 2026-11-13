@@ -17,8 +17,11 @@ npm run build       # xuất tĩnh ra out/
 
 ## Sửa nội dung
 
-Toàn bộ chữ nằm trong `src/data/portfolio.ts`: thông tin cá nhân (điền `email`, `phone` để hiện ở footer),
-số liệu, dự án AI, danh sách hệ thống, luồng kiến trúc, bộ công cụ và nguyên tắc.
+Toàn bộ chữ nằm trong `src/data/portfolio.ts`: thông tin cá nhân, số liệu, dự án (kèm `pitch` — bài toán hiện ở màn sân khấu),
+năng lực, cách làm và **bài viết** (`posts`).
+
+Thêm bài viết: thêm một mục vào đầu mảng `posts` — `status: "draft"` hiện nhãn "Đang viết";
+`status: "published"` kèm `href` (link bài) và `date` thì bấm được.
 
 ## Cấu trúc
 
