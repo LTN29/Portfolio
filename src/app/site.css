@@ -313,18 +313,6 @@ html:not(.js) .line > span { transform: none; }
 .pc__go { display: inline-flex; align-items: center; gap: 0.45rem; margin-top: auto; padding-top: 0.9rem; border-top: 1px solid var(--line); font-size: 0.86rem; font-weight: 600; }
 .pc__go i { font-style: normal; transition: transform 0.4s var(--ease); }
 .pc__card.is-center:hover .pc__go i { transform: translateX(4px); }
-/* nút trái/phải: nằm ngay mép thẻ giữa, chỉ hiện khi rê chuột hoặc dùng bàn phím */
-.pc__btn {
-  position: absolute; top: 50%; z-index: 2; width: 2.6rem; height: 2.6rem; margin-top: -1.3rem;
-  border-radius: 50%; border: 1px solid var(--line-2); background: #fff; color: var(--ink); font-size: 1rem; cursor: pointer;
-  box-shadow: 0 8px 20px -12px rgba(23, 25, 28, 0.35);
-  opacity: 0; transition: opacity 0.35s var(--ease), background 0.3s, color 0.3s, border-color 0.3s;
-}
-.pc__btn--prev { left: calc(50% - var(--w) / 2 - 1.3rem); }
-.pc__btn--next { left: calc(50% + var(--w) / 2 - 1.3rem); }
-.pc:hover .pc__btn, .pc__btn:focus-visible { opacity: 1; }
-.pc__btn:hover { background: var(--ink); border-color: var(--ink); color: #fff; }
-@media (hover: none) { .pc__btn { display: none; } }
 
 /* ═══ DỰ ÁN ═══ */
 /* bố cục 2 cột: thanh chương dính bên trái, nội dung bên phải */

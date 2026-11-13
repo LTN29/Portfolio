@@ -235,8 +235,6 @@ export function ProjectCarousel() {
       >
         {cards}
       </div>
-      <button type="button" className="pc__btn pc__btn--prev" aria-label="Dự án trước" onClick={() => go(-1)}>←</button>
-      <button type="button" className="pc__btn pc__btn--next" aria-label="Dự án sau" onClick={() => go(1)}>→</button>
     </div>
   );
 }
