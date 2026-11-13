@@ -55,7 +55,13 @@ export function Nav() {
               <a key={l.href} href={l.href} className={active === l.href ? "is-on" : undefined}>{l.label}</a>
             ))}
           </nav>
-          <a href="#notes" className="nav__cta">Bài viết</a>
+          <div className="nav__acts">
+            <button type="button" className="nav__cta nav__cta--play" onClick={() => window.dispatchEvent(new Event("tour:start"))} title="Trang tự cuộn qua từng phần (Space dừng · → phần kế · Esc thoát)">
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5 3.5v9l7.5-4.5z" fill="currentColor" /></svg>
+              Tự xem
+            </button>
+            <a href="#notes" className="nav__cta">Bài viết</a>
+          </div>
           <button type="button" className="nav__menu" aria-expanded={open} aria-controls="nav-sheet" onClick={() => setOpen((o) => !o)}>
             {open ? "Đóng" : "Menu"}
           </button>
