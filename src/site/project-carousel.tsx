@@ -9,7 +9,8 @@ import { Logo, LogoPath, STACK_LOGO } from "@/components/tech/logo";
 /* Vòng thẻ dự án chạy liên tục như một vòng quay: trôi chậm, đều, không điểm đầu/cuối.
  * Vị trí là một số thực `cur` (đơn vị: thẻ). Mỗi khung hình, thẻ có chỉ số tuyệt đối a được đặt ở (a - cur) × bước;
  * độ to, độ rõ và bóng đổ đổi liên tục theo khoảng cách tới tâm, nên không có cú nhảy nào.
- * Rê chuột: chậm dần rồi dừng đúng một thẻ ở giữa. Kéo / vuốt: theo tay, thả ra có quán tính rồi trôi tiếp.
+ * Rê chuột vẫn trôi; chỉ khi nắm kéo / vuốt mới dừng và đi theo tay, thả ra có quán tính rồi trôi tiếp.
+ * Dùng bàn phím (Tab tới thẻ) thì dừng đúng một thẻ ở giữa để đọc.
  * Ra khỏi màn hình thì dừng hẳn vòng lặp. */
 
 const SPEED = 1 / 5.5; // thẻ / giây khi tự trôi
@@ -154,7 +155,7 @@ export function ProjectCarousel() {
       s.cur = d.start - dx / s.step;
     }
   };
-  const endDrag = (e?: React.PointerEvent) => {
+  const endDrag = () => {
     const s = st.current, d = s.drag;
     if (!d.on) return;
     d.on = false;
@@ -165,7 +166,7 @@ export function ProjectCarousel() {
       goTo(Math.round(s.cur + v * 0.35));
       s.tween!.ms = 650 + Math.min(500, Math.abs(v) * 120);
     }
-    if (e && e.pointerType !== "mouse") setHold(false);
+    setHold(false);
   };
 
   const cards = [];
@@ -216,9 +217,8 @@ export function ProjectCarousel() {
       role="region"
       aria-roledescription="carousel"
       aria-label="Dự án — kéo, vuốt hoặc dùng phím mũi tên"
-      onMouseEnter={() => setHold(true)}
-      onMouseLeave={() => { endDrag(); setHold(false); }}
-      onFocusCapture={() => setHold(true)}
+      onMouseLeave={() => endDrag()}
+      onFocusCapture={(e) => { if ((e.target as HTMLElement).matches?.(":focus-visible")) setHold(true); }}
       onBlurCapture={() => setHold(false)}
       onKeyDown={(e) => {
         if (e.key === "ArrowRight") { e.preventDefault(); go(1); }
@@ -228,7 +228,7 @@ export function ProjectCarousel() {
       <div
         ref={track}
         className="pc__track"
-        onPointerDown={(e) => { onPointerDown(e); if (e.pointerType !== "mouse") setHold(true); }}
+        onPointerDown={(e) => { onPointerDown(e); setHold(true); }}
         onPointerMove={onPointerMove}
         onPointerUp={endDrag}
         onPointerCancel={endDrag}
