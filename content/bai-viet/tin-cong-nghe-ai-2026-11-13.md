@@ -1,18 +1,12 @@
 ---
-title: "Tin công nghệ & AI tuần 13/11/2026: Nvidia mất CEO, AI agent bắt đầu bị siết"
-summary: Tuần của những cú sốc và giới hạn mới: CEO Nvidia từ chức, New York chuẩn bị thực thi luật an toàn AI, United Airlines chặn AI agent đặt vé, trong khi Việt Nam lần đầu vào bảng xếp hạng năng lực số và AI của IMD.
+title: "Tin công nghệ & AI tuần 13/11/2026: AI vào phòng họp, agent bắt đầu bị siết"
+summary: AI bước vào phòng họp và cả khâu kiểm chứng mã nguồn, trong khi luật an toàn AI ở New York và lệnh chặn agent của United Airlines cho thấy giới hạn mới; Việt Nam lần đầu vào bảng xếp hạng năng lực số và AI của IMD.
 date: 2026-11-13
 category: tin-tuan
-tags: [AI, Agent, Chính sách, Việt Nam]
+tags: [AI, Agent, Chính sách, Hạ tầng]
 ---
 
-Tuần này, tin lớn nhất không đến từ một model mới mà từ con người và luật lệ: Nvidia đột ngột mất CEO, New York mở cổng đăng ký cho các phòng lab AI lớn, và một hãng hàng không chặn hẳn AI agent. Trong khi đó, AI tiếp tục đi sâu vào phòng họp và cả khâu kiểm chứng mã nguồn.
-
-## Jensen Huang rời ghế CEO Nvidia
-
-Ngày 12/11, Jensen Huang từ chức CEO Nvidia sau loạt tiết lộ về các mối quan hệ ngoài hôn nhân, trong đó có một người bị giới chức Mỹ nghi làm gián điệp cho Trung Quốc. Giám đốc tài chính Colette Kress tạm giữ vị trí CEO trong lúc công ty tìm người kế nhiệm; ông Huang — cổ đông lớn thứ tư với 3,61% cổ phần — cũng rời hội đồng quản trị. Cổ phiếu Nvidia đóng cửa giảm 4,3%, trong khi AMD và Broadcom tăng khoảng 6%. Nghị sĩ hai đảng đang đòi siết xuất khẩu chip AI sang Trung Quốc.
-
-**Điều này có nghĩa là:** rủi ro lớn nhất không nằm ở lộ trình sản phẩm mà ở khả năng điều hành và chính sách xuất khẩu chip. Doanh nghiệp đang thuê GPU hay dựa vào vài nhà cung cấp hạ tầng nên chuẩn bị phương án dự phòng về giá và nguồn cung trong năm tới.
+Tuần này, nhiều tin đáng chú ý không đến từ model mới mà từ luật lệ và hạ tầng: New York mở cổng đăng ký cho các phòng lab AI lớn, một hãng hàng không chặn hẳn AI agent, còn Anthropic phải tự mua tua-bin khí để có điện. Trong khi đó, AI tiếp tục đi sâu vào phòng họp và cả khâu kiểm chứng mã nguồn.
 
 ## New York chuẩn bị thực thi luật an toàn AI
 
@@ -38,6 +32,12 @@ Ngày 11/11, United Airlines thông báo cấm các AI agent cá nhân của bê
 
 **Điều này có nghĩa là:** doanh nghiệp sẽ phải chọn rõ thái độ với agent — chặn, hay mở kênh chính thức có kiểm soát. Nếu sản phẩm của bạn có giỏ hàng hay đặt chỗ, nên bắt đầu nghĩ về API dành riêng cho agent thay vì để chúng "cào" giao diện.
 
+## Anthropic tự mua tua-bin khí để có điện
+
+Theo TechCrunch ngày 09/11 (dẫn Financial Times), Anthropic chi 3,4 tỷ USD mua máy phát chạy khí tự nhiên của Caterpillar, tổng công suất tối đa 1,7 GW. Đây là bước đi lạ với một công ty vốn thích thuê hơn mua: hồ sơ niêm yết cho thấy họ đang trả 1,25 tỷ USD mỗi tháng để thuê năng lực tính toán. Nguyên nhân là hàng chờ tua-bin khí đã kéo tới đầu thập niên 2030, còn chờ đấu nối lưới điện cũng lâu không kém.
+
+**Điều này có nghĩa là:** điện, chứ không chỉ chip, đang thành nút thắt của AI. Chi phí năng lượng sẽ dần ngấm vào giá API, nên doanh nghiệp nên tối ưu lượng token và chọn model vừa đủ cho từng việc thay vì luôn dùng model lớn nhất.
+
 ## Việt Nam đứng thứ 37 về năng lực số và AI
 
 Ngày 11/11, Bộ Khoa học và Công nghệ công bố kết quả của Việt Nam trong bảng xếp hạng năng lực cạnh tranh số và AI thế giới 2026 (WDAIR) của IMD: hạng 37/70 nền kinh tế với 78,09 điểm, thứ 3 trong 6 nền kinh tế Đông Nam Á được đánh giá, ngay lần đầu tham gia. Ở các mục thành phần, Việt Nam xếp thứ 13 về ứng dụng AI và thứ 15 về quản trị số và AI.
@@ -46,13 +46,13 @@ Ngày 11/11, Bộ Khoa học và Công nghệ công bố kết quả của Việ
 
 ## Góc nhìn của tôi
 
-Tuần này nhắc tôi rằng hạ tầng AI mong manh hơn ta nghĩ: chỉ một biến cố nhân sự cũng có thể kéo theo thay đổi về chính sách chip. Điều tôi chú ý hơn cả là vụ United — agent càng làm được nhiều việc thì câu hỏi "ai cho phép nó làm" càng trở nên quan trọng. Khi xây sản phẩm có agent, tôi coi quyền hạn, nhật ký và cơ chế dừng là phần lõi chứ không phải tính năng phụ. Và với doanh nghiệp Việt, thứ hạng chỉ là điểm xuất phát; điều đáng đo là bao nhiêu quy trình thực sự chạy nhanh hơn nhờ AI.
+Tuần này nhắc tôi rằng giới hạn của AI ngày càng nằm ở những thứ rất vật lý: điện, tua-bin, đường dây. Điều tôi chú ý hơn cả là vụ United — agent càng làm được nhiều việc thì câu hỏi "ai cho phép nó làm" càng trở nên quan trọng. Khi xây sản phẩm có agent, tôi coi quyền hạn, nhật ký và cơ chế dừng là phần lõi chứ không phải tính năng phụ. Và với doanh nghiệp Việt, thứ hạng chỉ là điểm xuất phát; điều đáng đo là bao nhiêu quy trình thực sự chạy nhanh hơn nhờ AI.
 
 ## Nguồn
 
-- [Nvidia CEO Jensen Huang resigns in blow to AI boom he helped foster – Reuters](https://www.reuters.com/business/retail-consumer/nvidia-ceo-jensen-huang-step-down-big-blow-ai-boom-2026-11-12/)
 - [OpenAI, Anthropic face new oversight as New York's AI safety law takes effect – TechCrunch](https://techcrunch.com/2026/11/10/openai-anthropic-face-new-oversight-as-new-yorks-ai-safety-law-takes-effect/)
 - [Anthropic launches Claude Meetings to turn workplace discussions into plans and tasks – TechCrunch](https://techcrunch.com/2026/11/10/anthropic-launches-claude-meetings-to-turn-workplace-discussions-into-plans-and-tasks/)
 - [Introducing AlphaProof Code – Google DeepMind](https://deepmind.google/blog/introducing-alphaproof-code/)
 - [United Airlines bans AI agents from booking flights on behalf of travelers – CBS News](https://www.cbsnews.com/news/united-airlines-bans-ai-agents-booking-flights/)
+- [Anthropic joins AI's natural gas frenzy, buys $3.4B worth of turbines – TechCrunch](https://techcrunch.com/2026/11/09/anthropic-joins-ais-natural-gas-frenzy-buys-3-4b-worth-of-turbines/)
 - [Việt Nam lần đầu vào bảng xếp hạng năng lực số và AI thế giới, đứng thứ 37 – Tuổi Trẻ Online](https://tuoitre.vn/viet-nam-lan-dau-vao-bang-xep-hang-nang-luc-so-va-ai-the-gioi-dung-thu-37-100261111140234484.htm)
