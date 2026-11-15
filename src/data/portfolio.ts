@@ -26,7 +26,7 @@ export const sectionLinks = [
 
 export const heroFacts = [
   ["10", "Sản phẩm tự lên ý tưởng & xây dựng"],
-  ["04", "Kênh khách hàng: Web · Zalo · iOS · Android"],
+  ["04", "Kênh dùng chung một dữ liệu: Web · Zalo · iOS · Android"],
   ["03", "Nền tảng: Web · Mobile · Desktop"],
   ["01", "Người làm từ ý tưởng đến vận hành"],
 ] as const;
@@ -46,10 +46,13 @@ export type Project = {
   name: string;
   kind: string;
   tagline: string;
-  /** câu mở màn sân khấu: bài toán dự án này giải, dạng câu hỏi */
+  /** câu mở màn sân khấu: điều tôi đã gặp phải trước khi làm dự án này */
   pitch: string;
   role: string[];
+  /** những gì đã trải qua khi làm dự án này */
   highlights: string[];
+  /** bài học rút ra, một câu */
+  lesson: string;
   stack: string[];
   demo: DemoKind;
   visual: VisualKind;
@@ -58,7 +61,7 @@ export type Project = {
 
 export const chapters = [
   { id: "ai", title: "AI & tự động hoá", note: "Đưa AI vào công việc hằng ngày" },
-  { id: "customer", title: "Sản phẩm cho khách hàng", note: "Bảo hành · bán hàng · đa kênh" },
+  { id: "channels", title: "Sản phẩm đa kênh", note: "Bảo hành · bán hàng · Web · Zalo · Mobile" },
   { id: "ops", title: "Hệ thống vận hành", note: "Mua hàng · kho · kết nối sàn" },
 ] as const;
 
@@ -68,15 +71,16 @@ export const projects: Project[] = [
     chapter: "ai",
     name: "Văn Phòng AI",
     kind: "Ứng dụng desktop đa agent",
-    tagline: "Một văn phòng 3D nơi mỗi nhân viên AI ngồi một bàn: giao việc như giao cho người thật, cả nhóm tự chia việc, kiểm tra chéo và nộp file kết quả.",
-    pitch: "Làm sao để AI nhận việc, chia việc và nộp kết quả như một đội người thật?",
+    tagline: "Tôi thử giao việc cho AI như giao cho một đội người thật: mỗi agent ngồi một bàn trong văn phòng 3D, trưởng nhóm chia việc, một người kiểm tra chéo rồi cả nhóm nộp file. Tôi chọn 3D vì người không rành công nghệ nhìn vào là hiểu AI đang làm gì.",
+    pitch: "Công việc thật hiếm khi gọn trong một câu hỏi — vậy mà công cụ AI nào cũng chỉ là một khung chat.",
     role: ["Ý tưởng", "Thiết kế UI/UX & 3D", "Full-stack", "Phát hành"],
     highlights: [
-      "Ba không gian trong một app: Văn phòng (đội AI 3D), Chat nhiều model, Sảnh 3D online cho cả công ty",
-      "Mỗi agent dùng model khác nhau (GPT, Claude, Gemini, model nội bộ) cùng chung bộ công cụ & kỹ năng",
-      "Trình duyệt cạnh khung chat: AI tự mở web, đọc tài liệu Excel / Word trên đám mây",
-      "Tự build & cập nhật cho Windows, macOS, Linux; Sảnh có bản cho điện thoại",
+      "Một danh sách log dài là vô nghĩa với hầu hết mọi người; nhìn thấy trưởng nhóm đang “suy nghĩ”, hai người gõ phím, một người mở trình duyệt thì ai cũng hiểu",
+      "Mỗi agent dùng một model khác nhau (GPT, Claude, Gemini, model nội bộ) nhưng chung bộ công cụ — đổi model không phải viết lại công cụ",
+      "Từng gặp lỗi mất đoạn chat: bản đồng bộ cũ thay cả lịch sử khi số lượt lệch. Tôi đổi sang chỉ nối phần mới, sao lưu trước mỗi lần ghi và thêm nút khôi phục",
+      "Phần tốn công nhất là phát hành: build tự động cho Windows, macOS, Linux và tự cập nhật — thứ giữ app được dùng mỗi ngày thay vì bị quên sau tuần đầu",
     ],
+    lesson: "Người dùng tin AI khi thấy được nó đang làm gì và kiểm tra được kết quả. Thiết kế cho sự minh bạch quan trọng không kém việc chọn model.",
     stack: ["Electron", "three.js", "Node.js", "MCP", "GitHub Actions"],
     demo: "office",
     visual: "office",
@@ -87,15 +91,16 @@ export const projects: Project[] = [
     chapter: "ai",
     name: "AI Gateway",
     kind: "Cổng AI dùng chung cho tổ chức",
-    tagline: "Một cổng duy nhất cho mọi ứng dụng gọi AI: xác thực, hạn mức theo người, chọn model phù hợp và tự chuyển model khác khi nhà cung cấp gặp sự cố.",
-    pitch: "Cả công ty cùng dùng AI — làm sao kiểm soát được quyền, hạn mức và chi phí?",
+    tagline: "Tôi gom mọi ứng dụng gọi AI về một cổng: chỉ cần một địa chỉ, một khoá, gọi theo chuẩn API quen thuộc. Từ đó thêm model hay đổi nhà cung cấp chỉ còn là sửa cấu hình ở cổng, không phải sửa từng ứng dụng.",
+    pitch: "Mỗi người một tài khoản AI, mỗi ứng dụng một khoá — không ai biết tháng này đã tiêu bao nhiêu.",
     role: ["Kiến trúc", "Backend", "Vận hành máy chủ"],
     highlights: [
-      "Chuẩn API chung cho app desktop, trợ lý chat và công cụ nội bộ",
-      "Tuỳ biến bộ định tuyến model mã nguồn mở: tạo & sửa ảnh theo đúng model đang dùng",
-      "Phát công cụ, kỹ năng và bản cập nhật app xuống máy nhân viên tự động",
-      "Máy chủ thời gian thực cho Sảnh 3D nhiều người cùng lúc",
+      "Mỗi yêu cầu đi qua bốn bước: nhận diện bằng mã băm của khoá, kiểm hạn mức, chọn model được phép, tự chuyển model khi nhà cung cấp quá tải",
+      "Ảnh nặng thỉnh thoảng biến mất vì Cloudflare cắt kết nối im lặng quá 100 giây — tôi gửi tín hiệu giữ kết nối trong lúc chờ",
+      "Bộ cài từng làm hỏng cấu hình máy nhân viên vì dòng log lẫn vào giá trị trả về. Giờ bộ cài dựng file tạm, kiểm tra hợp lệ rồi mới thay, luôn giữ bản cũ",
+      "Tuỳ biến bộ định tuyến model mã nguồn mở; mọi chỗ sửa đều đánh dấu và ghi chú để áp lại sau mỗi lần nâng cấp",
     ],
+    lesson: "Gom về một cổng trước khi số ứng dụng tăng lên: làm sớm thì rẻ, làm muộn là đi sửa từng ứng dụng một.",
     stack: ["Node.js", "Docker", "SSE", "Cloudflare"],
     demo: "gateway",
     visual: "gateway",
@@ -105,16 +110,17 @@ export const projects: Project[] = [
     id: "chatbot-ai",
     chapter: "ai",
     name: "Chatbot AI",
-    kind: "Trợ lý chăm sóc khách hàng trên web & app",
-    tagline: "Khách hỏi về sản phẩm, chính sách, bảo hành lúc nào cũng có người đáp: AI chỉ trả lời từ kho tri thức đã duyệt và dẫn đúng nguồn; AI hết hạn mức hay mất kết nối thì vẫn trả lời từ dữ liệu, khách không bao giờ thấy lỗi.",
-    pitch: "Làm sao để chatbot AI trả lời khách đúng sự thật, không bịa — và không “sập” khi AI gặp sự cố?",
+    kind: "Trợ lý hỏi đáp trên web & app",
+    tagline: "Tôi chỉ cho AI trả lời từ kho tri thức đã duyệt và kiểm tra nguồn nó dẫn. Khi AI lỗi hay hết hạn mức, hệ thống tạm ngắt và trả lời thẳng từ dữ liệu — người hỏi không bao giờ thấy màn hình lỗi.",
+    pitch: "Chatbot trả lời sai một câu về chính sách là mất niềm tin — mà AI thì có lúc bịa, có lúc hết hạn mức.",
     role: ["Ý tưởng", "Thiết kế hội thoại", "Backend & AI", "Trang quản trị"],
     highlights: [
-      "Chỉ trả lời từ tri thức đã duyệt: lấy 5 nguồn sát nhất (FAQ, chính sách, cách xử lý lỗi, sản phẩm); câu AI dẫn sai nguồn bị loại",
-      "Dự phòng nhiều tầng: AI hết hạn mức hoặc mất kết nối thì tạm ngắt và trả lời thẳng từ dữ liệu; nhớ câu trả lời hay dùng để gọi AI ít hơn",
-      "Che số điện thoại, email, mã phiếu trước khi gửi AI; từ chối câu dò cấu hình, kéo câu lạc đề về sản phẩm; theo mạch khi khách đổi chủ đề",
-      "Trang quản trị: biến câu chưa trả lời thành tri thức mới, thống kê, chống spam, xếp thứ tự model AI và tự chuyển khi lỗi",
+      "Mỗi câu hỏi lấy 5 nguồn sát nhất (FAQ, chính sách, cách xử lý lỗi, sản phẩm); câu trả lời nào dẫn sai nguồn bị loại",
+      "Cầu dao: AI hết hạn mức hay lỗi liên tiếp thì ngắt một lúc (5 phút hoặc 30 giây tuỳ loại lỗi); câu hay hỏi được nhớ sẵn để gọi AI ít hơn",
+      "Che số điện thoại, email, mã phiếu trước khi gửi AI; từ chối câu dò cấu hình, kéo câu lạc đề về đúng sản phẩm",
+      "Câu chưa trả lời được gom lại để duyệt thành tri thức mới — kho tri thức lớn dần theo câu hỏi thật",
     ],
+    lesson: "AI là một tầng có thể hỏng. Thiết kế đường lui trước, rồi mới cho AI nói.",
     stack: ["Spring Boot", "React", "Database", "RAG", "Node.js"],
     demo: "chatbot",
     visual: "gateway",
@@ -125,14 +131,15 @@ export const projects: Project[] = [
     chapter: "ai",
     name: "Tự động hoá chiến dịch",
     kind: "Hàng đợi & máy chạy song song",
-    tagline: "Chiến dịch bình luận chạy trên nhiều máy cùng lúc nhưng không bao giờ làm trùng việc; máy nào treo thì hệ thống tự phát hiện và chạy lại.",
-    pitch: "Chiến dịch chạy trên nhiều máy cùng lúc — làm sao để không bao giờ trùng việc?",
+    tagline: "Tôi tách bộ phân việc khỏi máy chạy: mỗi bài chỉ có đúng một việc trong hàng đợi, máy nào treo thì giám sát tự phát hiện và chạy lại. Mặc định là chạy thử — chỉ nhập nội dung, không gửi.",
+    pitch: "Chạy trên nhiều máy cùng lúc, rủi ro lớn nhất là một việc bị làm hai lần.",
     role: ["Thiết kế hệ thống", "Automation"],
     highlights: [
-      "Bộ phân việc tách khỏi máy chạy: mỗi bài chỉ được xử lý đúng một lần",
-      "Trình duyệt tự động giữ phiên đăng nhập, thao tác với nhịp tự nhiên",
-      "Giám sát tiến trình, tự thử lại và báo ngay khi có sự cố",
+      "Mỗi chiến dịch – bài – tài khoản chỉ có một việc trong hàng đợi, nên không bao giờ trùng",
+      "Mỗi tài khoản một hồ sơ trình duyệt riêng giữ phiên đăng nhập; không lưu mật khẩu",
+      "Năm luồng tự động: phân việc, chạy tay, thử lại việc lỗi, giám sát máy, kiểm tra phiên đăng nhập",
     ],
+    lesson: "Việc tự động có tác động ra bên ngoài thì mặc định phải là chạy thử — bật chạy thật là một quyết định có chủ ý.",
     stack: ["n8n", "Playwright", "Docker"],
     demo: "queue",
     visual: "orchestrator",
@@ -140,18 +147,19 @@ export const projects: Project[] = [
   },
   {
     id: "bao-hanh",
-    chapter: "customer",
+    chapter: "channels",
     name: "Hệ sinh thái bảo hành",
     kind: "Website · Zalo Mini App · App iOS & Android",
-    tagline: "Khách kích hoạt, tra cứu và gửi yêu cầu bảo hành ở kênh nào cũng được; kỹ thuật viên cập nhật một lần, khách thấy ngay trên mọi kênh.",
-    pitch: "Làm sao để khách tự kích hoạt và tra cứu bảo hành ngay trên điện thoại?",
+    tagline: "Tôi làm một hệ thống bảo hành dùng chung một dữ liệu cho bốn kênh: website, Zalo Mini App, iOS và Android. Kỹ thuật viên cập nhật một lần, người mua thấy ngay ở kênh mình đang dùng.",
+    pitch: "Muốn biết máy đang bảo hành tới đâu, người mua phải gọi điện rồi chờ.",
     role: ["Ý tưởng", "Thiết kế UI/UX", "Web & Mini App", "App mobile"],
     highlights: [
-      "Trang quản trị: phiếu bảo hành qua 13 trạng thái, kỹ thuật viên, kho linh kiện, báo cáo xuất Excel",
-      "Zalo Mini App: đăng nhập một chạm bằng số Zalo, mua hàng, kích hoạt bảo hành cho đơn từ sàn",
-      "App iOS & Android: đăng nhập OTP, thiết bị của tôi, yêu cầu sửa chữa, song ngữ Việt – Anh",
-      "Quản trị nội dung app, mini app và kho câu hỏi cho chatbot ngay trên web",
+      "Phiếu đi qua 13 trạng thái theo một máy trạng thái: không có bước nhảy cóc, mỗi lần đổi đều để lại dấu vết",
+      "Cơ sở dữ liệu là nguồn sự thật; bảng tính chỉ là bản sao đồng bộ sau, nên lỗi đồng bộ không làm hỏng phiếu đã lưu",
+      "Zalo Mini App đăng nhập một chạm bằng số Zalo; app iOS & Android đăng nhập OTP, song ngữ Việt – Anh",
+      "Trang tra cứu công khai chỉ hiện thông tin tối thiểu, không lộ ghi chú nội bộ hay địa chỉ riêng",
     ],
+    lesson: "Nhiều kênh chỉ dễ khi chỉ có một nguồn dữ liệu — mọi kênh còn lại chỉ là cửa sổ nhìn vào.",
     stack: ["React", "Spring Boot", "Database", "React Native", "Zalo Mini App", "Docker"],
     demo: "warranty",
     visual: "warranty",
@@ -159,17 +167,18 @@ export const projects: Project[] = [
   },
   {
     id: "website-sapo",
-    chapter: "customer",
+    chapter: "channels",
     name: "Website bán hàng",
     kind: "Theme tuỳ biến trên nền tảng thương mại điện tử",
-    tagline: "Giao diện cửa hàng tự thiết kế trên nền tảng thương mại điện tử (Sapo, Haravan, Shopify…): trang chủ, danh mục, trang sản phẩm và khuyến mãi, dùng chung dữ liệu sản phẩm với Mini App.",
-    pitch: "Một website bán hàng mang dấu ấn riêng mà vẫn tải nhanh, chuẩn SEO?",
+    tagline: "Tôi tự thiết kế và lập trình theme trên nền tảng thương mại điện tử có sẵn: trang chủ, danh mục, sản phẩm, khuyến mãi. Dữ liệu sản phẩm dùng chung với Mini App nên chỉ phải nhập một lần.",
+    pitch: "Theme có sẵn thì giống hàng trăm cửa hàng khác; tự làm từ đầu thì sợ chậm và rớt SEO.",
     role: ["Thiết kế giao diện", "Lập trình theme"],
     highlights: [
-      "Theme tuỳ biến theo nhận diện riêng, đổi màu và khối nội dung ngay trong trang quản trị",
+      "Theme theo nhận diện riêng, đổi màu và khối nội dung ngay trong trang quản trị",
       "Tối ưu tốc độ và SEO trang sản phẩm, hiển thị tốt trên điện thoại",
-      "Dữ liệu sản phẩm được Mini App đọc lại để bán trên Zalo",
+      "Mini App đọc lại dữ liệu sản phẩm từ website để bán trên Zalo",
     ],
+    lesson: "Đứng trên nền tảng có sẵn và dồn công sức vào phần tạo khác biệt, thay vì làm lại những thứ ai cũng có.",
     stack: ["Nền tảng TMĐT", "Liquid", "JavaScript", "SEO"],
     demo: "store",
     visual: "mobile",
@@ -180,15 +189,16 @@ export const projects: Project[] = [
     chapter: "ops",
     name: "Quản lý mua hàng & nhập khẩu",
     kind: "Ứng dụng web nội bộ",
-    tagline: "Theo dõi mỗi đơn mua từ lúc dự tính đến khi hàng về kho qua 10 mốc, kèm lịch thanh toán, cảnh báo đến hạn và chứng từ của từng đơn.",
-    pitch: "Đơn mua, lịch thanh toán, hàng nhập khẩu — làm sao gom về một nơi?",
+    tagline: "Tôi gom mỗi đơn mua vào một dòng thời gian 10 mốc, từ lúc dự tính đến khi hàng về kho, kèm lịch thanh toán, cảnh báo trễ hạn và chứng từ. AI đọc báo giá, hợp đồng rồi điền sẵn đơn để bớt gõ lại.",
+    pitch: "Một đơn nhập khẩu đi qua quá nhiều nơi: email, bảng tính, chứng từ — và trí nhớ của từng người.",
     role: ["Ý tưởng", "Thiết kế UI/UX", "Full-stack"],
     highlights: [
       "AI đọc báo giá / hợp đồng và điền sẵn đơn mua",
-      "Lịch thanh toán, dòng tiền dự kiến, lịch công việc cho từng bộ phận",
-      "Đăng nhập tài khoản công ty (Microsoft), phân quyền theo vai trò",
+      "Lịch thanh toán, dòng tiền dự kiến, cảnh báo đơn sắp trễ hạn",
+      "Đăng nhập tài khoản công ty (Microsoft), phân quyền theo vai trò; gửi email và biên bản bàn giao PDF ngay từ hệ thống",
       "Thống kê bán hàng & tồn kho để quyết định nhập thêm",
     ],
+    lesson: "Một cảnh báo đến đúng lúc có giá trị hơn một báo cáo đầy đủ mà không ai mở.",
     stack: ["React", "TypeScript", "Tailwind", "Spring Boot", "Database", "Entra ID"],
     demo: "purchase",
     visual: "orchestrator",
@@ -199,14 +209,16 @@ export const projects: Project[] = [
     chapter: "ops",
     name: "Tồn kho & kết nối đa sàn",
     kind: "Ứng dụng web nội bộ",
-    tagline: "Một nơi xem tồn kho nhiều kho, đơn hàng, đổi trả và quảng cáo từ Shopee, TikTok Shop; bán ở đâu thì số tồn mọi kênh cập nhật theo.",
-    pitch: "Hàng ở nhiều kho, đơn đổ về từ Shopee, TikTok — làm sao xem ở cùng một chỗ?",
+    tagline: "Tôi đặt một nguyên tắc: chỉ có một nguồn sự thật là kho nội bộ, các sàn chỉ là nơi hiển thị. Đơn từ Shopee, TikTok Shop đổ về một chỗ, trừ tồn đúng kho và ghi nhật ký mọi thay đổi.",
+    pitch: "Số tồn trên các sàn luôn lệch so với kho thật — mà lệch là bán âm.",
     role: ["Thiết kế UI/UX", "Full-stack", "Tích hợp API sàn"],
     highlights: [
-      "Đồng bộ đơn hàng, đổi trả, đánh giá và quảng cáo qua API của sàn",
-      "Tồn kho nhiều kho, combo sản phẩm, kho ảo cho từng kênh",
-      "Báo cáo hằng ngày và theo dõi hàng nhập khẩu về kho",
+      "Trả lời sàn trước, xử lý sau: đơn vào hàng đợi để giờ cao điểm không tự tạo ra bão yêu cầu trùng",
+      "Mỗi đơn một khoá chống trùng — sàn gửi lại ba lần vẫn chỉ xử lý một lần",
+      "Kho ảo cho từng kênh để giữ phần dự phòng cho kênh quan trọng hơn",
+      "Lô hàng đã có lịch sử thì không đổi tên; mọi lần điều chỉnh tồn đều có nhật ký để truy vết",
     ],
+    lesson: "Làm việc với hệ thống bên ngoài, hãy giả định mọi thứ sẽ đến trễ, đến hai lần hoặc không đến.",
     stack: ["React", "Vite", "Spring Boot", "Database", "Shopee API", "TikTok Shop API"],
     demo: "inventory",
     visual: "inventory",
@@ -215,7 +227,7 @@ export const projects: Project[] = [
 ];
 
 export const otherProjects = [
-  { name: "Đặt phòng & quản lý khách sạn", note: "Đặt phòng trực tuyến nối với phần mềm quản lý khách sạn, lịch phòng và thanh toán.", stack: "Next.js · Webhook · Payment" },
+  { name: "Đặt phòng lưu trú", note: "Đặt phòng trực tuyến nối với phần mềm quản lý lưu trú (PMS). Việc ghi đặt phòng thật được khoá mặc định cho tới khi kiểm thử xong — sai một đơn đặt phòng là sai với người thật.", stack: "Next.js · Webhook · Payment" },
   { name: "Landing page 3D", note: "Trang giới thiệu thương hiệu và ra mắt sản phẩm với WebGL, chuyển động theo nhịp cuộn.", stack: "Three.js · React Three Fiber · GSAP" },
   { name: "Website sản phẩm đa ngôn ngữ", note: "Danh mục sản phẩm nhiều ngôn ngữ, tải nhanh, cấu trúc SEO quốc tế.", stack: "Next.js · i18n · CDN" },
 ];

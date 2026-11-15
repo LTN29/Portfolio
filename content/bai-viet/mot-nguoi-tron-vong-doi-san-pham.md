@@ -12,9 +12,9 @@ Phần lớn những gì có trên trang này bắt đầu giống nhau: một v
 
 ## Bắt đầu từ việc thật
 
-Ý tưởng tốt nhất của tôi chưa bao giờ đến từ một buổi họp. Nó đến từ việc ngồi cạnh người dùng: xem họ chép số từ màn hình này sang bảng tính kia, xem họ mở năm tab để trả lời một câu hỏi của khách. Mỗi chỗ họ thở dài là một chỗ đáng làm.
+Ý tưởng tốt nhất của tôi chưa bao giờ đến từ một buổi họp. Nó đến từ việc ngồi cạnh người dùng: xem họ chép số từ màn hình này sang bảng tính kia, xem họ mở năm tab để trả lời một câu hỏi. Mỗi chỗ họ thở dài là một chỗ đáng làm.
 
-Ví dụ, hệ thống tồn kho đa sàn ra đời vì số tồn trên các sàn thương mại điện tử luôn lệch so với kho thật. Hệ sinh thái bảo hành ra đời vì khách muốn tự tra cứu bảo hành trên điện thoại thay vì gọi điện chờ.
+Ví dụ, hệ thống tồn kho đa sàn ra đời vì số tồn trên các sàn thương mại điện tử luôn lệch so với kho thật. Hệ sinh thái bảo hành ra đời vì người mua muốn tự tra cứu bảo hành trên điện thoại thay vì gọi điện chờ.
 
 ## Vẽ trước, code sau
 

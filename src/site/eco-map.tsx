@@ -12,7 +12,7 @@ import { Comet } from "@/components/sim/comet";
 type N = { id: string; x: number; y: number; label: string; sub: string; logo?: string; icon?: string };
 
 const NODES: N[] = [
-  { id: "zalo", x: 96, y: 92, logo: "zalo", label: "Zalo Mini App", sub: "KHÁCH HÀNG" },
+  { id: "zalo", x: 96, y: 92, logo: "zalo", label: "Zalo Mini App", sub: "NGƯỜI DÙNG" },
   { id: "app", x: 96, y: 196, logo: "react", label: "App iOS · Android", sub: "REACT NATIVE" },
   { id: "web", x: 96, y: 300, icon: "globe", label: "Website bán hàng", sub: "NỀN TẢNG TMĐT" },
   { id: "desk", x: 96, y: 404, logo: "electron", label: "Văn Phòng AI", sub: "NHÂN VIÊN · DESKTOP" },

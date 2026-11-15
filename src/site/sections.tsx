@@ -33,8 +33,8 @@ export function Hero() {
 
           <div className="hero__tr" data-reveal style={{ ["--d" as string]: "0.18s" }}>
             <p className="lead">
-              Tôi tự lên ý tưởng, thiết kế và xây dựng ứng dụng AI, hệ thống vận hành nội bộ và app cho khách hàng —
-              rồi theo đến khi chúng chạy ổn mỗi ngày.
+              Tôi tự lên ý tưởng, thiết kế và xây dựng ứng dụng AI, hệ thống vận hành nội bộ và app di động —
+              rồi theo đến khi chúng chạy ổn mỗi ngày. Dưới đây là những gì tôi đã trải qua và học được.
             </p>
             <div className="hero__actions">
               <a className="ulink" href="#stack">Công nghệ</a>
@@ -113,10 +113,14 @@ export function Projects() {
                 <SystemSim system={p.demo} />
                 <div className="pj__spec">
                   <div className="pj__spec-main">
-                    <h4>Điểm nổi bật</h4>
+                    <h4>Những gì tôi đã trải qua</h4>
                     <ol className="pj__feats">
                       {p.highlights.map((h) => <li key={h}>{h}</li>)}
                     </ol>
+                    <div className="pj__lesson">
+                      <h4>Bài học</h4>
+                      <p>{p.lesson}</p>
+                    </div>
                   </div>
                   <div className="pj__spec-side">
                     <div>
@@ -168,9 +172,9 @@ export function Projects() {
 
 /* ═══ VỀ TÔI ═══ */
 const PILLARS = [
-  { k: "Tự lên ý tưởng", t: "Bắt đầu từ việc thật", d: "Các sản phẩm ở đây đều sinh ra từ một việc đang làm thủ công, chậm hoặc dễ sai. Tôi đề xuất và làm bản đầu tiên để mọi người dùng thử." },
-  { k: "Tự thiết kế", t: "Giao diện là một phần của sản phẩm", d: "Tự vẽ giao diện, luồng thao tác, chuyển động và cả không gian 3D — để người dùng không cần hướng dẫn vẫn dùng được." },
-  { k: "Tự vận hành", t: "Chạy thật, không dừng ở demo", d: "Tự triển khai máy chủ, phát hành bản cập nhật, theo dõi lỗi và cải tiến theo số liệu sử dụng." },
+  { k: "Tự lên ý tưởng", t: "Bắt đầu từ việc thật", d: "Ý tưởng tốt nhất của tôi chưa từng đến từ một buổi họp, mà từ việc ngồi cạnh người dùng: xem họ chép số từ màn hình này sang bảng tính kia. Mỗi chỗ họ thở dài là một chỗ đáng làm." },
+  { k: "Tự thiết kế", t: "Vẽ trước, code sau", d: "Một bản mẫu bấm được — dù thô — trả lời nhanh hơn mọi tài liệu mô tả: người dùng chỉ vào chỗ họ bối rối, và tôi sửa ngay khi việc sửa còn rẻ." },
+  { k: "Tự vận hành", t: "Dùng thật từ tuần đầu", d: "Một tính năng nằm trên máy tôi ba tháng không bằng một tính năng nhỏ được dùng thật từ tuần đầu. Vì vậy tôi đầu tư sớm cho phát hành: khi phát hành rẻ, tôi dám phát hành thường xuyên." },
 ];
 
 export function About() {

@@ -20,7 +20,10 @@ export function llmsText(full = false) {
   out.push("## Dự án", "");
   for (const p of projects) {
     out.push(`- **${p.name}** (${p.kind}; vai trò: ${p.role.join(", ")}): ${p.tagline} Công nghệ: ${p.stack.join(", ")}. [Xem mô phỏng](${abs(`/#${p.id}`)})`);
-    if (full) for (const h of p.highlights) out.push(`  - ${h}`);
+    if (full) {
+      for (const h of p.highlights) out.push(`  - ${h}`);
+      out.push(`  - Bài học: ${p.lesson}`);
+    }
   }
   for (const o of otherProjects) out.push(`- **${o.name}**: ${o.note} (${o.stack})`);
   out.push("", "## Năng lực", "");

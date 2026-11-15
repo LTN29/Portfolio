@@ -387,6 +387,9 @@ html:not(.js) .line > span { transform: none; }
 .pj__spec { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 1.6rem clamp(2rem, 4vw, 4rem); margin: -1.4rem 1.2rem 0; padding: 2.6rem clamp(1.2rem, 2.2vw, 2rem) 1.4rem; border-radius: 0 0 20px 20px; background: var(--bg-2); }
 .pj__spec h4 { margin-bottom: 0.75rem; font-family: var(--f-label); font-size: 0.8rem; font-weight: 600; color: var(--ink); }
 .pj__spec-side { display: grid; align-content: start; gap: 1.2rem; }
+.pj__lesson { margin-top: 1.4rem; padding: 1rem 1.2rem; border-radius: 14px; background: #fff; box-shadow: inset 3px 0 0 var(--accent, #2563eb); }
+.pj__lesson h4 { margin-bottom: 0.35rem; }
+.pj__lesson p { font-size: 1rem; line-height: 1.55; color: var(--ink); }
 .pj__feats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.8rem 1.8rem; counter-reset: f; }
 .pj__feats li { position: relative; padding-left: 2rem; font-size: 0.9rem; color: var(--ink-2); line-height: 1.55; counter-increment: f; }
 .pj__feats li::before { content: counter(f); position: absolute; left: 0; top: 0.05rem; display: grid; place-items: center; width: 1.35rem; height: 1.35rem; border-radius: 50%; background: #fff; box-shadow: inset 0 0 0 1px var(--line-2); font-size: 0.7rem; font-weight: 600; color: var(--accent-ink); }
